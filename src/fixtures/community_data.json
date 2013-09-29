@@ -1,0 +1,9 @@
+[{
+	"model": "api.community",
+	"owner_id": 1,
+	"pk": 1,
+	"fields": {
+		"name": "Public",
+		"namespace": "public"
+	}
+}]
