@@ -1,16 +1,18 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
 class Community(models.Model):
 	name = models.CharField(max_length=50)
-	namespace = models.CharField(max_length=60)
+	namespace = models.SlugField(max_length=50)
 	owner = models.ForeignKey('auth.User', related_name='community')
 
 	def save(self, *args, **kwargs):
 		# print self
 		# s.community = self.community
 		# s.save()
+		self.namespace = slugify(self.name)
 		super(Community, self).save(*args, **kwargs)
 
 
