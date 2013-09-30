@@ -1,11 +1,12 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from autoslug import AutoSlugField
 
 # Create your models here.
 
 class Community(models.Model):
 	name = models.CharField(max_length=50)
-	namespace = models.SlugField(max_length=50)
+	namespace = AutoSlugField(populate_from='name', unique=True)
 	owner = models.ForeignKey('auth.User', related_name='community')
 
 	def save(self, *args, **kwargs):

@@ -17,7 +17,6 @@ class SourceSerializer(serializers.ModelSerializer):
 class CommunitySerializer(serializers.HyperlinkedModelSerializer):
     # owner = serializers.Field(source='owner.username')
     sources = SourceSerializer(many=True, read_only=True)
-    namespace = serializers.SlugField(read_only=True)
     class Meta:
         model = Community
         fields = ('name', 'namespace', 'id', 'sources')
