@@ -5,6 +5,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+	url(r'^', include('frontend.urls')),
 	url(r'^', include('api.urls')),
 	# url(r'^test', TemplateView.as_view(template_name='/snippets/static/about.html')),
 
