@@ -36,6 +36,17 @@
 						<a href="#">Something goes here?</a>
 					</li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					{% if user.is_authenticated %}
+						<li>
+							<a href="#">{{user}}</a>
+						</li>
+					{% else %}
+						<li>
+							<a href="/api-auth/login/?next=/">Not Logged in</a>
+						</li>
+					{% endif %}
+				</ul>
 			</div><!--/.navbar-collapse -->
 		</div>
 
@@ -44,6 +55,7 @@
 		<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 		<script type="text/javascript" src="{{STATIC_URL}}js/map.js"></script>
+		<span id="centerpoint"><span class="shadow"></span><span class="x"></span><span class="marker"></span></span>
 
 	</body>
 </html>
