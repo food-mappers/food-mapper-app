@@ -2,17 +2,21 @@ Justing testing Django REST Framework with our data model.  Taking a lot from th
 
 Not using POSTGRESQL but SQLITE3 for now
 
-1.) Clone repo
+For now we are using the [Fork & Pull Model of development](https://help.github.com/articles/using-pull-requests)
 
-	git clone https://github.com/food-mappers/rest-framework-dev.git
+1.) Fork the [main repo](https://github.com/food-mappers/food-mapper-app)
+
+After the repo is forked and created at 'your-github-username/food-mapper-app', clone your repo
+
+	git clone https://github.com/your-github-username/food-mapper-app.git
 
 or
 
-	git clone git@github.com:food-mappers/rest-framework-dev.git
+	git clone git@github.com:your-github-username/food-mapper-app.git
 
 2.) Create new virtual environement
 
-	cd rest-framework-dev
+	cd food-mapper-app
 	virtualenv env
 	source env/bin/activate
 	pip install -r requirements.txt
@@ -20,15 +24,15 @@ or
 3.) Run sync db
 
 	cd src
-	python src/manage.py syncdb
+	python manage.py syncdb
 
 During syncdb create superuser
 
 4.) Start server
 
-	python src/manage.py runserver
+	python manage.py runserver
 
-5.) Navigate to root [http://127.0.0.1:8000](http://127.0.0.1:8000)
+5.) Navigate to root [http://127.0.0.1:8000](http://127.0.0.1:8000) - Should see map for now
 
 6.) Signin with user you created - now you can create a community
 
