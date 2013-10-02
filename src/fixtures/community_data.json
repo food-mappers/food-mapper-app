@@ -1,9 +1,45 @@
 [{
-	"model": "api.community",
-	"owner_id": 1,
-	"pk": 1,
-	"fields": {
-		"name": "Public",
-		"namespace": "public"
+		"model": "api.community",
+		"pk": 1,
+		"fields": {
+			"name": "Public",
+			"namespace": "public",
+			"owner": 1
+		}
+	}, {
+		"model": "api.source",
+		"pk": 1,
+		"fields": {
+			"name": "GaTech Hotdog Stand",
+			"description": "Hotdogs for sale at the game",
+			"latitude": 33.772369635684605,
+			"longitude": -84.39348578453064,
+			"community": 1,
+			"created": "2013-03-16T17:41:28+00:00"
+		}
+	}, {
+		"model": "api.source",
+		"pk": 2,
+		"fields": {
+			"name": "Food Court - Student Center",
+			"description": "Indian, Mediterranean, Sushi",
+			"latitude": 33.77406856895522,
+			"longitude": -84.3987375497818,
+			"community": 1,
+			"created": "2013-03-16T17:41:28+00:00"
+		}
+	}, {
+		"model": "api.source",
+		"pk": 3,
+		"fields": {
+			"name": "Apple tree",
+			"description": "Best apples in the world",
+			"latitude": 33.776133106558646,
+			"longitude": -84.39829230308533,
+			"community": 1,
+			"created": "2013-03-16T17:41:28+00:00"
+		}
 	}
-}]
+
+
+]
