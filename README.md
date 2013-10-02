@@ -25,6 +25,8 @@ or
 
 	cd src
 	python manage.py syncdb
+	#seed initial data
+	python manage.py loaddata fixtures/community_data
 
 During syncdb create superuser
 
