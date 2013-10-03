@@ -1,3 +1,35 @@
-django
-djangorestframework
 django-autoslug
+
+# The server
+django
+# gevent
+gunicorn
+
+# Persistance
+psycopg2
+dj-database-url
+south
+django-redis
+boto
+django-storages
+
+# REST API
+djangorestframework
+markdown
+python-dateutil
+ujson
+
+# The manager interface
+requests>=1.2.0
+
+# Testing, validating, and debugging
+nose
+django-nose
+mock
+mock_django
+django-debug-toolbar
+
+# =====================================
+
+# For DRF 0.4 (deprecated)
+URLObject>=0.6.0
