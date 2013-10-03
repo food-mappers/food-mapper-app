@@ -105,7 +105,7 @@ input[type="radio"], input[type="checkbox"] {
 
 /* Center Point: crosshairs and new point icon */
 #centerpoint {
-  display: none;
+  /*display: none;*/
   width: 65px;
   height: 65px;
   background: transparent url(images/crosshair.png) 0 0 no-repeat scroll;
