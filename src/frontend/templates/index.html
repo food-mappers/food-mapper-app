@@ -16,6 +16,9 @@
 			<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
 		<![endif]-->
 		<link href="{{STATIC_URL}}css/map.css" rel="stylesheet" type="text/css">
+		<script type="text/javascript">
+			var csrf = '{{ csrf_token }}'
+		</script>
 	</head>
 	<body>
 		<div class="navbar navbar-inverse navbar-fixed-top">
@@ -30,7 +33,7 @@
 			<div class="navbar-collapse collapse" id="navbar-collapse">
 				<ul class="nav navbar-nav">
 					<li> 
-						<a href="#">Add a food source</a>
+						<a href="#" onClick="addSource()"><span class="glyphicon glyphicon-plus-sign"></span> Add a food source</a>
 					</li>
 					<li>
 						<a href="#">Something goes here?</a>

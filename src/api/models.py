@@ -22,8 +22,8 @@ class Source(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	name = models.CharField(max_length=150)
 	description = models.CharField(max_length=300)
-	latitude = models.DecimalField(max_digits=15, decimal_places=12)
-	longitude = models.DecimalField(max_digits=15, decimal_places=12)
+	latitude = models.DecimalField(max_digits=30, decimal_places=27)
+	longitude = models.DecimalField(max_digits=30, decimal_places=27)
 	# user = models.ForeignKey('auth.User', related_name='foodsource')
 	community = models.ForeignKey(Community, related_name='sources')
 
