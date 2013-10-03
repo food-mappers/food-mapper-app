@@ -11,8 +11,8 @@ class SourceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Source
-        fields = ('name', 'description',
-                  'latitude', 'longitude', 'community')
+        fields = ('name', 'description','community',
+                  'location')
 
 class CommunitySerializer(serializers.HyperlinkedModelSerializer):
     # owner = serializers.Field(source='owner.username')
