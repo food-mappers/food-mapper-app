@@ -71,12 +71,15 @@ getSources();
 //post new food source on success clear markers and get all markers... need to modify to get ?Created > initial pageload date/time
 
 function addSource() {
+	$('#add-source-modal').modal('hide')
 	var latlng = map.getCenter()
+	var name = $('#sourceName').val()
+	var desc = $('#sourceDesc').val()
 	$.post('/api/sources/', {
 		latitude: latlng.lat,
 		longitude: latlng.lng,
-		name: 'test1',
-		description: 'this is a test',
+		name: name,
+		description: desc,
 		community: 1
 	}, function(data, status) {
 		if (status === 'success') {
