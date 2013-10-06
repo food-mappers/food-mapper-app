@@ -52,7 +52,6 @@ var allMarkers = new L.layerGroup();
 // Get food sources and parse them to markers in layer group
 
 function getSources() {
-	console.log(community)
 	$.getJSON('/api/communities/' + community.pk, function(data) {
 		$.each(data.sources, function(i, val) {
 			allMarkers.addLayer(L.marker([val.latitude, val.longitude]).bindPopup(makePopup(val)))
