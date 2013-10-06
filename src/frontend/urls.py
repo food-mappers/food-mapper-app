@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 print views
 
 urlpatterns = patterns('',
-    url(r'^$', TemplateView.as_view(template_name="index.html")),
+    url(r'^$', 'frontend.views.index'),
+    url(r'^community/(?P<slug>[-\w]+)','frontend.views.community_map')
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 )
