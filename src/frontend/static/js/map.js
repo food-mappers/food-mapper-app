@@ -35,12 +35,6 @@ var mapquestOSM = L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.
 
 var gaTech = [33.77764915000493, -84.39986944198608];
 
-var community = {
-	"name": "Public",
-	"namespace": "public",
-	"pk": 1
-}
-
 var map = L.map("map", {
 	zoom: 15,
 	center: gaTech,
@@ -58,8 +52,8 @@ var allMarkers = new L.layerGroup();
 // Get food sources and parse them to markers in layer group
 
 function getSources() {
-	$.getJSON('/api/communities?namespace=' + community.namespace, function(data) {
-		$.each(data[0].sources, function(i, val) {
+	$.getJSON('/api/communities/' + community.pk, function(data) {
+		$.each(data.sources, function(i, val) {
 			allMarkers.addLayer(L.marker([val.latitude, val.longitude]).bindPopup(makePopup(val)))
 		})
 		allMarkers.addTo(map)
@@ -80,7 +74,7 @@ function addSource() {
 		longitude: latlng.lng,
 		name: name,
 		description: desc,
-		community: 1
+		community: community.pk
 	}, function(data, status) {
 		if (status === 'success') {
 			allMarkers.clearLayers();
