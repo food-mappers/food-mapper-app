@@ -1,4 +1,4 @@
-Justing testing Django REST Framework with our data model.  Taking a lot from the Django REST Framework tutorial [here](http://django-rest-framework.org/tutorial/quickstart.html)
+An application for crowdsourcing food sources in food sheds.
 
 Not using POSTGRESQL but SQLITE3 for now
 
@@ -34,11 +34,13 @@ During syncdb create superuser
 
 	python manage.py runserver
 
-5.) Navigate to root [http://127.0.0.1:8000](http://127.0.0.1:8000) - Should see map for now
+5.) Navigate to root [http://127.0.0.1:8000](http://127.0.0.1:8000) - Should see map, defaults to public view
 
 6.) Signin with user you created - now you can create a community
 
-7.) Navigate to root/communities, create a community
+7.) Navigate to api/communities, create a community
 
-8.) Navigate to root/sources, create a food source
+8.) Navigate to api/sources, create a food source
+
+9.) Food sources created on community pages are automatically added to that community
 
