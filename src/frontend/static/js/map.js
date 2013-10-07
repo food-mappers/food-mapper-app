@@ -41,6 +41,13 @@ var map = L.map("map", {
 	layers: [mapquestOSM]
 });
 
+//Add geolocation
+
+L.control.locate({
+	follow: true,
+	stopFollowingOnDrag: true
+}).addTo(map);
+
 function makePopup(val) {
 	var popup = "<strong>" + val.name + "</strong><br>" + val.description + "<br>"
 	return popup
