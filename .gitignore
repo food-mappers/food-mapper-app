@@ -35,3 +35,10 @@ src/project/config.yml
 # sqlite database
 *.db
 
+# project
+*.project
+*.pydevproject
+
+#settings
+settings.py
+

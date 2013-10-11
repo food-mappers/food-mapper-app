@@ -5,7 +5,7 @@ django
 # gevent
 gunicorn
 
-# Persistance
+# Persistence
 psycopg2
 dj-database-url
 south

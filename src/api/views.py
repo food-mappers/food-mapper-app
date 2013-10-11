@@ -1,5 +1,5 @@
-from api.models import Source, Community
-from api.serializers import SourceSerializer, CommunitySerializer
+from api.models import Source, Map
+from api.serializers import SourceSerializer, MapSerializer
 from rest_framework import generics
 from django.contrib.auth.models import User
 from api.serializers import UserSerializer
@@ -22,9 +22,9 @@ def api_root(request, format=None):
         'sources': reverse('source-list', request=request, format=format)
     })
 
-class CommunityViewSet(viewsets.ModelViewSet):
-	queryset = Community.objects.all()
-	serializer_class = CommunitySerializer
+class MapViewSet(viewsets.ModelViewSet):
+	queryset = Map.objects.all()
+	serializer_class = MapSerializer
 	permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
 	def pre_save(self, obj):
