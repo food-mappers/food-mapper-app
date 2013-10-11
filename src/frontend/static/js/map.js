@@ -35,7 +35,7 @@ var mapquestOSM = L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.
 
 var gaTech = [33.77764915000493, -84.39986944198608];
 
-var map = L.map("map", {
+var map_detail = L.map("map", {
 	zoom: 15,
 	center: gaTech,
 	layers: [mapquestOSM]
@@ -46,7 +46,7 @@ var map = L.map("map", {
 L.control.locate({
 	follow: true,
 	stopFollowingOnDrag: true
-}).addTo(map);
+}).addTo(map_detail);
 
 function makePopup(val) {
 	var popup = "<strong>" + val.name + "</strong><br>" + val.description + "<br>"
@@ -59,11 +59,11 @@ var allMarkers = new L.layerGroup();
 // Get food sources and parse them to markers in layer group
 
 function getSources() {
-	$.getJSON('/api/communities/' + community.pk, function(data) {
+	$.getJSON('/api/maps/' + map.pk, function(data) {
 		$.each(data.sources, function(i, val) {
 			allMarkers.addLayer(L.marker([val.latitude, val.longitude]).bindPopup(makePopup(val)))
 		})
-		allMarkers.addTo(map)
+		allMarkers.addTo(map_detail)
 	})
 }
 
@@ -73,7 +73,7 @@ getSources();
 
 function addSource() {
 	$('#add-source-modal').modal('hide')
-	var latlng = map.getCenter()
+	var latlng = map_detail.getCenter()
 	var name = $('#sourceName').val()
 	var desc = $('#sourceDesc').val()
 	$.post('/api/sources/', {
@@ -81,7 +81,7 @@ function addSource() {
 		longitude: latlng.lng,
 		name: name,
 		description: desc,
-		community: community.pk
+		map: map.pk
 	}, function(data, status) {
 		if (status === 'success') {
 			allMarkers.clearLayers();

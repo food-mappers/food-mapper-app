@@ -1,11 +1,11 @@
 from django.contrib import admin
-from api.models import Source, Community
+from api.models import Source, Map
 
 class SourceAdmin(admin.ModelAdmin):
 	pass
 
-class CommunityAdmin(admin.ModelAdmin):
+class MapAdmin(admin.ModelAdmin):
 	pass
 
 admin.site.register(Source, SourceAdmin)
-admin.site.register(Community, CommunityAdmin)
+admin.site.register(Map, MapAdmin)

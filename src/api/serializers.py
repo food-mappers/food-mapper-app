@@ -1,6 +1,6 @@
 from django.forms import widgets
 from rest_framework import serializers
-from api.models import Source, Community
+from api.models import Source, Map
 from django.contrib.auth.models import User
 
 class SourceSerializer(serializers.ModelSerializer):
@@ -12,13 +12,13 @@ class SourceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Source
         fields = ('name', 'description',
-                  'latitude', 'longitude', 'community')
+                  'latitude', 'longitude', 'map')
 
-class CommunitySerializer(serializers.HyperlinkedModelSerializer):
+class MapSerializer(serializers.HyperlinkedModelSerializer):
     # owner = serializers.Field(source='owner.username')
     sources = SourceSerializer(many=True, read_only=True)
     class Meta:
-        model = Community
+        model = Map
         fields = ('name', 'namespace', 'id', 'sources')
         # read_only_fields = ('namespace')
 
@@ -27,4 +27,4 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'username', 'community')
+        fields = ('url', 'username', 'map')
