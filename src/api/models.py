@@ -4,33 +4,37 @@ from autoslug import AutoSlugField
 
 # Create your models here.
 
-class Community(models.Model):
-	name = models.CharField(max_length=50)
-	namespace = AutoSlugField(populate_from='name', unique=True)
-	owner = models.ForeignKey('auth.User', related_name='community')
+class Map(models.Model):
+    name = models.CharField(max_length=50)
+    namespace = AutoSlugField(populate_from='name', unique=True)
+    owner = models.ForeignKey('auth.User', related_name='map')
 
-	def save(self, *args, **kwargs):
-		# print self
-		# s.community = self.community
-		# s.save()
-		self.namespace = slugify(self.name)
-		super(Community, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+        # print self
+        # s.map = self.map
+        # s.save()
+        self.namespace = slugify(self.name)
+        super(Map, self).save(*args, **kwargs)
+    class Meta :
+        db_table = "map"    
 
 
 
 class Source(models.Model):
-	created = models.DateTimeField(auto_now_add=True)
-	name = models.CharField(max_length=150)
-	description = models.CharField(max_length=300)
-	latitude = models.DecimalField(max_digits=30, decimal_places=27)
-	longitude = models.DecimalField(max_digits=30, decimal_places=27)
-	# user = models.ForeignKey('auth.User', related_name='foodsource')
-	community = models.ForeignKey(Community, related_name='sources')
+    created = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=150)
+    description = models.CharField(max_length=300)
+    latitude = models.DecimalField(max_digits=30, decimal_places=27)
+    longitude = models.DecimalField(max_digits=30, decimal_places=27)
+    # user = models.ForeignKey('auth.User', related_name='foodsource')
+    map = models.ForeignKey(Map, related_name='sources')
 
-	def save(self, *args, **kwargs):
-		print self.name
-		# print Community.objects.get(name="Public").object_id
-		# self.community = 1#Community.objects.get(name="Public")
-		super(Source, self).save(*args, **kwargs)
-		# self.community.add(Community.objects.get(name="Public"))
-		# self.save()
+    def save(self, *args, **kwargs):
+        print self.name
+        # print Map.objects.get(name="Public").object_id
+        # self.map = 1#Map.objects.get(name="Public")
+        super(Source, self).save(*args, **kwargs)
+        # self.map.add(Map.objects.get(name="Public"))
+        # self.save()
+    class Meta :
+        db_table = "source"        
