@@ -1,5 +1,5 @@
 [{
-		"model": "api.community",
+		"model": "api.map",
 		"pk": 1,
 		"fields": {
 			"name": "Public",
@@ -14,7 +14,7 @@
 			"description": "Hotdogs for sale at the game",
 			"latitude": 33.772369635684605,
 			"longitude": -84.39348578453064,
-			"community": 1,
+			"map": 1,
 			"created": "2013-03-16T17:41:28+00:00"
 		}
 	}, {
@@ -25,7 +25,7 @@
 			"description": "Indian, Mediterranean, Sushi",
 			"latitude": 33.77406856895522,
 			"longitude": -84.3987375497818,
-			"community": 1,
+			"map": 1,
 			"created": "2013-03-16T17:41:28+00:00"
 		}
 	}, {
@@ -36,7 +36,7 @@
 			"description": "Best apples in the world",
 			"latitude": 33.776133106558646,
 			"longitude": -84.39829230308533,
-			"community": 1,
+			"map": 1,
 			"created": "2013-03-16T17:41:28+00:00"
 		}
 	}
