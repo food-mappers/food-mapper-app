@@ -99,6 +99,76 @@ input[type="radio"], input[type="checkbox"] {
         display: none !important;
     }
 }
+/*Add a source*/
+a.add-source {
+  /*display: none;*/
+  float: left;
+  position: fixed;
+  right: auto;
+  bottom: 20px;
+  left: 10px;
+  z-index: 1001;
+  background-color: #000;
+  color: #999;
+  padding: 0.05em 0.4em 0.2em 0.4em;
+  font-size: 2.5em;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 1px -1px 0 #06A;
+     -moz-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+  -webkit-box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+          box-shadow: -4px 4px 0 rgba(85, 85, 85, 0.5);
+}
+a.add-source:hover {
+  color: #fff;
+}
+a.add-source span {
+  display: none;
+}
+a.add-source:before {
+  content: "+";
+}
+
+
+@media only screen and (min-width: 480px) and (orientation: portrait) {
+  a.add-source {
+    padding: 0.6em 1em;
+    font-size: 2.5em;
+    bottom: 0.75em;
+    left: 0.75em;
+  }
+  a.add-source span {
+    font-size: 1em;
+    display: inline;
+  }
+  a.add-source:before {
+    content: "";
+  }
+}
+
+@media only screen and (min-width: 768px) { /* menu is visible */
+  a.add-source {
+    padding: 0.4em .2em;
+    font-size: 2em;
+    bottom: 1.5em;
+    left: 1em;
+  }
+  a.add-source span {
+    font-size: 1em;
+    display: inline;
+  }
+  a.add-source:before {
+    content: "";
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  a.add-source {
+    font-size: 2.75em;
+  }
+}
+
 
 /*Centerpoint*/
 
@@ -123,7 +193,7 @@ input[type="radio"], input[type="checkbox"] {
   -ms-transition: opacity 0.25s;
   transition: opacity 0.25s;
 }
-a.add-place:hover + #centerpoint,
+a.add-source:hover + #centerpoint,
 #centerpoint.dragging {
   opacity: 1;
 }

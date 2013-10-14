@@ -47,8 +47,9 @@ class SourceViewSet(viewsets.ModelViewSet):
         snippet = self.get_object()
         return Response(snippet.highlighted)
 
-    # def pre_save(self, obj):
-    #     obj.owner = self.request.user
+    def pre_save(self, obj):
+        if (self.request.user.is_authenticated()):
+            obj.owner = self.request.user
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
 	"""
