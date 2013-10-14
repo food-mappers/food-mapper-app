@@ -22,8 +22,7 @@
 		"fields": {
 			"name": "GaTech Hotdog Stand",
 			"description": "Hotdogs for sale at the game",
-			"latitude": 33.772369635684605,
-			"longitude": -84.39348578453064,
+			"location": "POINT(-84.39348578453064 33.772369635684605)",
 			"map": 1,
 			"created": "2013-03-16T17:41:28+00:00"
 		}
@@ -33,8 +32,7 @@
 		"fields": {
 			"name": "Food Court - Student Center",
 			"description": "Indian, Mediterranean, Sushi",
-			"latitude": 33.77406856895522,
-			"longitude": -84.3987375497818,
+			"location": "POINT(-84.3987375497818 33.77406856895522)",
 			"map": 1,
 			"created": "2013-03-16T17:41:28+00:00"
 		}
@@ -44,8 +42,7 @@
 		"fields": {
 			"name": "Apple tree",
 			"description": "Best apples in the world",
-			"latitude": 33.776133106558646,
-			"longitude": -84.39829230308533,
+			"location": "POINT(-84.39829230308533 33.776133106558646)",
 			"map": 1,
 			"created": "2013-03-16T17:41:28+00:00"
 		}

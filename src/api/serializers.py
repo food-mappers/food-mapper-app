@@ -2,8 +2,9 @@ from django.forms import widgets
 from rest_framework import serializers
 from api.models import Source, Map
 from django.contrib.auth.models import User
+from rest_framework_gis import serializers as gis_serializers
 
-class SourceSerializer(serializers.ModelSerializer):
+class SourceSerializer(gis_serializers.GeoModelSerializer):
     # user = serializers.Field(source='owner.username')
     # highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
     # communities = serializers.HyperlinkedRelatedField(view_name='community-detail', lookup_field='name', required=False, read_only=True)
@@ -12,7 +13,8 @@ class SourceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Source
-        fields = ('name', 'description', 'latitude', 'longitude', 'map', 'user')
+        geo_field = "location"
+        fields = ('name', 'description', 'map', 'user', 'location')
         
 
 class MapSerializer(serializers.HyperlinkedModelSerializer):
