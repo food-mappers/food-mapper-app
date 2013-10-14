@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.template.response import TemplateResponse
 from api.models import Map
 from django.core import serializers
 from django.http import HttpResponse, Http404, HttpResponseNotFound
@@ -7,6 +8,12 @@ from django.http import HttpResponse, Http404, HttpResponseNotFound
 
 def index(request):
 	return render(request, 'root.html')
+
+def login(request):
+	return TemplateResponse(request, 'login.html', {'request': request})
+
+def maps(request):
+	return render(request, 'maps.html', {'maps' : Map.objects.all()})
 
 def map(request, slug):
 	current_map = Map.objects.filter(namespace=slug)

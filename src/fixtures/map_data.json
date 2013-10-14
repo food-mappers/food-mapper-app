@@ -2,9 +2,19 @@
 		"model": "api.map",
 		"pk": 1,
 		"fields": {
-			"name": "Public",
-			"namespace": "public",
-			"owner": 1
+			"name": "Georgia Tech Food Map",
+			"namespace": "georgia-tech-food-map",
+			"owner": 1,
+			"description": "On campus food options for Georgia Tech students"
+		}
+	},{
+		"model": "api.map",
+		"pk": 2,
+		"fields": {
+			"name": "Another test Map",
+			"namespace": "another-test-map",
+			"owner": 1,
+			"description": "testing 123"
 		}
 	}, {
 		"model": "api.source",

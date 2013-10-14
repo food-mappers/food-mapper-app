@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> Food Mapper | Maps </title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<h2>Food Mapper Maps</h2>
+	<div class="row">
+	{% for map in maps %}
+		<div class="col-lg-4">
+			<a href="/map/{{map.namespace}}"><h3>{{map.name}}</h3></a>
+			<p>{{map.description}}</p>
+		</div>
+	{% endfor %}
+	</div>
+
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

@@ -20,7 +20,7 @@ class MapSerializer(serializers.HyperlinkedModelSerializer):
     sources = SourceSerializer(many=True, read_only=True)
     class Meta:
         model = Map
-        fields = ('name', 'namespace', 'id', 'sources')
+        fields = ('name', 'namespace', 'id', 'sources', 'description')
         # read_only_fields = ('namespace')
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
