@@ -1,7 +1,5 @@
 An application for crowdsourcing food sources in food sheds.
 
-Not using POSTGRESQL but SQLITE3 for now
-
 For now we are using the [Fork & Pull Model of development](https://help.github.com/articles/using-pull-requests)
 
 1.) Fork the [main repo](https://github.com/food-mappers/food-mapper-app)
@@ -21,12 +19,21 @@ or
 	source env/bin/activate
 	pip install -r requirements.txt
 
-3.) Run sync db
+3a.) Create the database and users
+
+	createdb food_map_test
+	psql -d food_map_test
+	CREATE USER foodmapper WITH PASSWORD 'foodmapper';
+	GRANT ALL PRIVILEGES ON food_map_test to foodmapper;
+	CREATE EXTENSION postgis;
+	\q
+
+3b.) Run sync db
 
 	cd src
 	python manage.py syncdb
 	#seed initial data
-	python manage.py loaddata fixtures/community_data
+	python manage.py loaddata fixtures/map_data
 
 During syncdb create superuser
 
@@ -34,13 +41,4 @@ During syncdb create superuser
 
 	python manage.py runserver
 
-5.) Navigate to root [http://127.0.0.1:8000](http://127.0.0.1:8000) - Should see map, defaults to public view
-
-6.) Signin with user you created - now you can create a community
-
-7.) Navigate to api/communities, create a community
-
-8.) Navigate to api/sources, create a food source
-
-9.) Food sources created on community pages are automatically added to that community
-
+5.) Navigate to root [http://127.0.0.1:8000](http://127.0.0.1:8000) - Should see landing page
