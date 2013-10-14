@@ -7,6 +7,7 @@ from autoslug import AutoSlugField
 class Map(models.Model):
     name = models.CharField(max_length=50)
     namespace = AutoSlugField(populate_from='name', unique=True)
+    description = models.CharField(max_length=350, null=True)
     owner = models.ForeignKey('auth.User', related_name='map')
 
     def save(self, *args, **kwargs):
