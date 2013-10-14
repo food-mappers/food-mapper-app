@@ -26,11 +26,12 @@ class Source(models.Model):
     description = models.CharField(max_length=300)
     latitude = models.DecimalField(max_digits=30, decimal_places=27)
     longitude = models.DecimalField(max_digits=30, decimal_places=27)
-    # user = models.ForeignKey('auth.User', related_name='foodsource')
+    owner = models.ForeignKey('auth.User', related_name='source', null=True)
     map = models.ForeignKey(Map, related_name='sources')
 
     def save(self, *args, **kwargs):
-        print self.name
+        # print self.name
+        print self.owner
         # print Map.objects.get(name="Public").object_id
         # self.map = 1#Map.objects.get(name="Public")
         super(Source, self).save(*args, **kwargs)

@@ -8,11 +8,12 @@ class SourceSerializer(serializers.ModelSerializer):
     # highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
     # communities = serializers.HyperlinkedRelatedField(view_name='community-detail', lookup_field='name', required=False, read_only=True)
     # community = serializers
+    user = serializers.Field(source='owner')
 
     class Meta:
         model = Source
-        fields = ('name', 'description',
-                  'latitude', 'longitude', 'map')
+        fields = ('name', 'description', 'latitude', 'longitude', 'map', 'user')
+        
 
 class MapSerializer(serializers.HyperlinkedModelSerializer):
     # owner = serializers.Field(source='owner.username')
