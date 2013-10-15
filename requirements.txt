@@ -6,7 +6,7 @@ django
 #gunicorn
 
 # Persistence
-#psycopg2
+psycopg2
 #dj-database-url
 #south
 #django-redis
