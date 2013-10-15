@@ -40,5 +40,5 @@ During syncdb create superuser
 
 7.) Navigate to root/communities, create a community
 
-8.) Navigate to root/sources, create a food source
+8.) Navigate to root/sources, create a food source.
 
