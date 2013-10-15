@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<title>Food Mapper</title>
+
+		<!-- Core CSS -->
+		<link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+		<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+		<link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" type="text/css">
+		<link href="{{STATIC_URL}}css/L.Control.Locate.css" rel="stylesheet">
+		<!--[if lte IE 8]>
+			<link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" rel="stylesheet" type="text/css">
+			<link rel="stylesheet" href="{{STATIC_URL}}css/L.Control.Locate.ie.css"/>
+			<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
+		<![endif]-->
+		<link href="{{STATIC_URL}}css/map.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+		<div class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Food Mapper</a>
+			</div>
+			<div class="navbar-collapse collapse" id="navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li> 
+						<a data-toggle="modal" href="#add-source-modal""><span class="glyphicon glyphicon-plus-sign"></span> Add a food source</a>
+					</li>
+					<li>
+						<a href="#">Something goes here?</a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					{% if user.is_authenticated %}
+						<li>
+							<a href="#">{{user}}</a>
+						</li>
+					{% else %}
+						<li>
+							<a href="/api-auth/login/?next=/">Not Logged in</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div><!--/.navbar-collapse -->
+		</div>
+
+    	<div id="map"></div>
+    	{% include "addPoint.html" %}
+    	<script>
+    		var map = JSON.parse("{{map|escapejs}}")[0]
+		</script>
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+		<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/L.Control.Locate.js"></script>
+		<script type="text/javascript" src="{{STATIC_URL}}js/map.js"></script>
+		<span id="centerpoint"><span class="shadow"></span><span class="x"></span><span class="marker"></span></span>
+
+	</body>
+</html>

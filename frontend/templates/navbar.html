@@ -1,0 +1,33 @@
+<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</button>
+		<a class="navbar-brand" href="/">Food Mapper</a>
+	</div>
+	<div class="navbar-collapse collapse" id="navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li> 
+				<a href="/maps">View Maps</a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav navbar-right">
+			{% if user.is_authenticated %}
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{user}}<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="#">View my maps</a>
+							<a href="#">View my food soruces</a>
+							<a href="/auth/logout?next={{request.path}}">Logout</a>
+				</li>
+			{% else %}
+				<li>
+					<a href="/login/?next={{request.path}}">Login</a>
+				</li>
+			{% endif %}
+		</ul>
+	</div>
+</div>
