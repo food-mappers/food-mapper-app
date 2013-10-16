@@ -11,6 +11,7 @@
 </a>
 <span id="centerpoint"><span class="shadow"></span><span class="x"></span><span class="marker"></span></span>
 {% include "addPoint.html" %}
+{% include "viewPoint.html" %}
 {% endblock %}
 
 {% block scripts %}
@@ -19,5 +20,6 @@
 </script>
 <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/L.Control.Locate.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}bower_components/moment/min/moment.min.js"></script>
 <script type="text/javascript" src="{{STATIC_URL}}js/map.js"></script>
 {% endblock %}

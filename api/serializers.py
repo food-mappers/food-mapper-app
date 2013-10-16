@@ -10,10 +10,11 @@ class SourceSerializer(serializers.ModelSerializer):
     # communities = serializers.HyperlinkedRelatedField(view_name='community-detail', lookup_field='name', required=False, read_only=True)
     # community = serializers
     user = serializers.Field(source='owner')
+    created = serializers.Field(source='created')
 
     class Meta:
         model = Source
-        fields = ('name', 'description', 'map', 'user', 'latitude', 'longitude')
+        fields = ('name', 'description', 'map', 'user', 'latitude', 'longitude', 'created')
         
 
 class MapSerializer(serializers.HyperlinkedModelSerializer):
