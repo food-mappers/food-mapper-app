@@ -1,5 +1,6 @@
 # Django settings for src project.
 import os
+import dj_database_url
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -12,7 +13,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'food_map_test',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'foodmapper',
@@ -24,13 +25,13 @@ DATABASES = {
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com', '127.0.0.1']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
 # although not all choices may be available on all operating systems.
 # In a Windows environment this must be set to your system time zone.
-TIME_ZONE = 'America/Chicago'
+TIME_ZONE = 'America/New_York'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -51,8 +52,6 @@ USE_TZ = True
 
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 
-# print PROJECT_ROOT
-
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 MEDIA_ROOT = ''
@@ -66,7 +65,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT =  os.path.join(PROJECT_ROOT, 'src','frontend','static')
+STATIC_ROOT =  os.path.join(PROJECT_ROOT,'frontend','static')
 
 # print STATIC_ROOT
 # URL prefix for static files.
@@ -116,10 +115,10 @@ MIDDLEWARE_CLASSES = (
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'src.urls'
+ROOT_URLCONF = 'foodmapperapp.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'src.wsgi.application'
+WSGI_APPLICATION = 'foodmapperapp.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -175,3 +174,11 @@ LOGGING = {
         },
     }
 }
+
+# Parse database configuration from $DATABASE_URL
+import dj_database_url
+DATABASES['default'] =  dj_database_url.config(default='postgres://foodmapper:foodmapper@localhost/food_map_test')
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+
+# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

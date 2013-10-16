@@ -1,5 +1,5 @@
 """
-WSGI config for src project.
+WSGI config for foodmapperapp project.
 
 This module contains the WSGI application used by Django's development server
 and any production WSGI deployments. It should expose a module-level variable
@@ -19,13 +19,14 @@ import os
 # if running multiple sites in the same mod_wsgi process. To fix this, use
 # mod_wsgi daemon mode with each site in its own daemon process, or use
 # os.environ["DJANGO_SETTINGS_MODULE"] = "src.settings"
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "src.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "foodmapperapp.settings")
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
+from dj_static import Cling
 from django.core.wsgi import get_wsgi_application
-application = get_wsgi_application()
+application = Cling(get_wsgi_application())
 
 # Apply WSGI middleware here.
 # from helloworld.wsgi import HelloWorldApplication

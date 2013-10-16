@@ -61,7 +61,7 @@ var allMarkers = new L.layerGroup();
 function getSources() {
 	$.getJSON('/api/maps/' + map.pk, function(data) {
 		$.each(data.sources, function(i, val) {
-			allMarkers.addLayer(L.marker([val.location.coordinates[1], val.location.coordinates[0]]).bindPopup(makePopup(val)))
+			allMarkers.addLayer(L.marker([val.latitude, val.longitude]).bindPopup(makePopup(val)))
 		})
 		allMarkers.addTo(map_detail)
 	})
@@ -77,7 +77,8 @@ function addSource() {
 	var name = $('#sourceName').val()
 	var desc = $('#sourceDesc').val()
 	$.post('/api/sources/', {
-		location: "POINT(" + latlng.lng + " " +latlng.lat + ")",
+		latitude: latlng.lat,
+		longitude: latlng.lng,
 		name: name,
 		description: desc,
 		map: map.pk
