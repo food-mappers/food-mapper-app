@@ -48,11 +48,6 @@ L.control.locate({
 	stopFollowingOnDrag: true
 }).addTo(map_detail);
 
-function makePopup(val) {
-	var popup = "<strong>" + val.name + "</strong><br>" + val.description + "<br>"
-	return popup
-}
-
 // Layer group to hold all markers shown on map
 var allMarkers = new L.layerGroup();
 
@@ -61,7 +56,11 @@ var allMarkers = new L.layerGroup();
 function getSources() {
 	$.getJSON('/api/maps/' + map.pk, function(data) {
 		$.each(data.sources, function(i, val) {
-			allMarkers.addLayer(L.marker([val.latitude, val.longitude]).bindPopup(makePopup(val)))
+			allMarkers.addLayer(L.marker([val.latitude, val.longitude]).on('click', function(e){
+				$('#view-source-header').html("<h4 class=''>" + val.name + "</h4>")
+				$('#view-source-body').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
+				$('#view-source-modal').modal('show');
+			}))
 		})
 		allMarkers.addTo(map_detail)
 	})
@@ -76,6 +75,8 @@ function addSource() {
 	var latlng = map_detail.getCenter()
 	var name = $('#sourceName').val()
 	var desc = $('#sourceDesc').val()
+	$('#sourceName').val('');
+	$('#sourceDesc').val('');
 	$.post('/api/sources/', {
 		latitude: latlng.lat,
 		longitude: latlng.lng,

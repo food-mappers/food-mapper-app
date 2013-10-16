@@ -1,0 +1,14 @@
+{
+  "name": "food-mapper-app",
+  "version": "0.0.0",
+  "directory": "static",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "leaflet": "~0.6.4",
+    "bootstrap": "~3.0.0",
+    "moment": "~2.3.1"
+  }
+}
