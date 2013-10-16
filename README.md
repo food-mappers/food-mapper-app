@@ -30,7 +30,6 @@ or
 
 3b.) Run sync db
 
-	cd src
 	python manage.py syncdb
 	#seed initial data
 	python manage.py loaddata fixtures/map_data
