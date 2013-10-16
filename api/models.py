@@ -1,6 +1,5 @@
 # from django.db import models
-from django.contrib.gis.db import models
-from django.contrib.gis import geos
+from django.db import models
 from django.template.defaultfilters import slugify
 from autoslug import AutoSlugField
 
@@ -25,9 +24,8 @@ class Source(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=150)
     description = models.CharField(max_length=300)
-    location = models.PointField()
-    # latitude = models.DecimalField(max_digits=30, decimal_places=27)
-    # longitude = models.DecimalField(max_digits=30, decimal_places=27)
+    latitude = models.DecimalField(max_digits=30, decimal_places=27)
+    longitude = models.DecimalField(max_digits=30, decimal_places=27)
     owner = models.ForeignKey('auth.User', related_name='source', null=True)
     map = models.ForeignKey(Map, related_name='sources')
 
