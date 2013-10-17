@@ -23,7 +23,7 @@ def api_root(request, format=None):
     })
 
 class MapViewSet(viewsets.ModelViewSet):
-	queryset = Map.objects.all()
+	queryset = Map.objects.filter(status=True)
 	serializer_class = MapSerializer
 	permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly,)
 
@@ -37,7 +37,7 @@ class SourceViewSet(viewsets.ModelViewSet):
 
     Additionally we also provide an extra `highlight` action.
     """
-    queryset = Source.objects.all()
+    queryset = Source.objects.filter(status=True)
     serializer_class = SourceSerializer
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,
     #                       IsOwnerOrReadOnly,)

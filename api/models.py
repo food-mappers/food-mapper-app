@@ -11,7 +11,7 @@ class Map(models.Model):
     namespace = AutoSlugField(populate_from='name', unique=True)
     description = models.CharField(max_length=350, null=True)
     owner = models.ForeignKey('auth.User', related_name='map')
-
+    status = models.BooleanField(default=True)
     def save(self, *args, **kwargs):
         self.namespace = slugify(self.name)
         super(Map, self).save(*args, **kwargs)
@@ -28,6 +28,7 @@ class Source(models.Model):
     longitude = models.DecimalField(max_digits=30, decimal_places=27)
     owner = models.ForeignKey('auth.User', related_name='source', null=True)
     map = models.ForeignKey(Map, related_name='sources')
+    status = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         # print Map.objects.get(name="Public").object_id
