@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> Food Mapper | Maps </title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<h2>{{user}}</h2>
+	<div>
+		<a href="/user/{{user}}/maps">View my maps</a>
+	</div>
+	<div>
+		<a href="/user/{{user}}/sources">View food sources I have added</a>	
+	</div>
+</div>
+{% block admincontent %}
+{% endblock %}
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

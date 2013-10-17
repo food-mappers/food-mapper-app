@@ -3,11 +3,13 @@ from django.template.response import TemplateResponse
 from api.models import Map
 from django.core import serializers
 from django.http import HttpResponse, Http404, HttpResponseNotFound
-
-
+from django.contrib.auth.decorators import login_required, user_passes_test
 
 def index(request):
 	return render(request, 'root.html')
+
+def page_not_found(request):
+	return render(request, '404.html')
 
 def login(request):
 	return TemplateResponse(request, 'login.html', {'request': request})
@@ -20,4 +22,18 @@ def map(request, slug):
 	if current_map:
 		return render(request, 'map.html', {'map' : serializers.serialize("json", current_map), 'title' : current_map[0].name})
 	else:
-		return HttpResponseNotFound('<h1>Could not find that map</h1>')
+		raise Http404
+
+@login_required
+def user(request, username):
+	if (request.user.username == username):
+		return render(request, 'user.html')
+	else:
+		raise Http404
+
+@login_required
+def usermaps(request, username):
+	if (request.user.username == username):
+		return render(request, 'adminMyMaps.html', {'maps': Map.objects.filter(owner=request.user.pk)})
+	else:
+		raise Http404

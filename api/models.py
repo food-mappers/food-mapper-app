@@ -18,8 +18,6 @@ class Map(models.Model):
     class Meta :
         db_table = "map"    
 
-
-
 class Source(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=150)
