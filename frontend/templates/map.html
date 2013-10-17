@@ -4,6 +4,15 @@
 <title> Food Mapper | {{title}} </title>
 {% endblock %}
 
+{% block headcss %}
+<link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" type="text/css">
+<link href="{{STATIC_URL}}css/L.Control.Locate.css" rel="stylesheet">
+<!--[if lte IE 8]>
+			<link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" rel="stylesheet" type="text/css">
+			<link rel="stylesheet" href="{{STATIC_URL}}css/L.Control.Locate.ie.css"/>
+<![endif]-->
+{% endblock %}
+
 {% block content %}
 <div id="map"></div>
 <a id="add-source" class="add-source" data-toggle="modal" href="#add-source-modal">
