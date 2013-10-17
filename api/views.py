@@ -13,6 +13,7 @@ from rest_framework import renderers
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.decorators import link
+import django_filters
 
 
 @api_view(('GET',))
@@ -30,6 +31,11 @@ class MapViewSet(viewsets.ModelViewSet):
 	def pre_save(self, obj):
 		obj.owner = self.request.user
 
+class SourceFilter(django_filters.FilterSet):
+    class Meta:
+        model = Source
+        fields = ['map']
+
 class SourceViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list`, `create`, `retrieve`,
@@ -39,13 +45,7 @@ class SourceViewSet(viewsets.ModelViewSet):
     """
     queryset = Source.objects.filter(status=True)
     serializer_class = SourceSerializer
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-    #                       IsOwnerOrReadOnly,)
-
-    @link(renderer_classes=[renderers.StaticHTMLRenderer])
-    def highlight(self, request, *args, **kwargs):
-        snippet = self.get_object()
-        return Response(snippet.highlighted)
+    filter_class = SourceFilter
 
     def pre_save(self, obj):
         if (self.request.user.is_authenticated()):

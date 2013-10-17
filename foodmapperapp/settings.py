@@ -74,6 +74,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    # os.path.join(PROJECT_ROOT,'frontend','static')
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -136,7 +137,7 @@ INSTALLED_APPS = (
     'rest_framework',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    'django.contrib.gis',
+    'django_filters',
     'autoslug',
     'frontend',
     'api',
@@ -179,8 +180,11 @@ REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
-    )
+    ),
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',)
 }
+
+LOGIN_URL = '/login'
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url

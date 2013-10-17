@@ -1,0 +1,13 @@
+{% extends "user.html" %}
+
+
+{% block admincontent %}
+<div class="container">
+	{% for map in maps %}
+		<div class="col-lg-4">
+			<a href="/map/{{map.namespace}}"><h3>{{map.name}}</h3></a>
+			<p>{{map.description}}</p>
+		</div>
+	{% endfor %}
+</div>
+{% endblock %}

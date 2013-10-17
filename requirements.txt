@@ -1,5 +1,6 @@
 django-autoslug
 dj-static
+django-filter
 
 # The server
 django
