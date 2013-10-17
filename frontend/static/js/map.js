@@ -48,18 +48,22 @@ L.control.locate({
 	stopFollowingOnDrag: true
 }).addTo(map_detail);
 
+function setupViewModal(val) {
+	$('#view-source-header').html("<h4 class=''>" + val.name + "</h4>")
+	$('#view-source-body').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
+	$('#view-source-modal').modal('show');
+}
+
 // Layer group to hold all markers shown on map
 var allMarkers = new L.layerGroup();
 
 // Get food sources and parse them to markers in layer group
 
 function getSources() {
-	$.getJSON('/api/maps/' + map.pk, function(data) {
-		$.each(data.sources, function(i, val) {
+	$.getJSON('/api/sources/?map=' + map.pk, function(data) {
+		$.each(data, function(i, val) {
 			allMarkers.addLayer(L.marker([val.latitude, val.longitude]).on('click', function(e){
-				$('#view-source-header').html("<h4 class=''>" + val.name + "</h4>")
-				$('#view-source-body').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
-				$('#view-source-modal').modal('show');
+				setupViewModal(val)
 			}))
 		})
 		allMarkers.addTo(map_detail)
