@@ -40,5 +40,5 @@ src/project/config.yml
 *.pydevproject
 
 #settings
-settings.py
+#settings.py
 

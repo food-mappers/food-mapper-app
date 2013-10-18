@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> Food Mapper | {{title}} </title>
+{% endblock %}
+
+{% block headcss %}
+<link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" type="text/css">
+<link href="{{STATIC_URL}}css/L.Control.Locate.css" rel="stylesheet">
+<!--[if lte IE 8]>
+			<link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" rel="stylesheet" type="text/css">
+			<link rel="stylesheet" href="{{STATIC_URL}}css/L.Control.Locate.ie.css"/>
+<![endif]-->
+{% endblock %}
+
+{% block content %}
+<div id="map"></div>
+<a id="add-source" class="add-source" data-toggle="modal" href="#add-source-modal">
+	<span>Add a food source</span>
+</a>
+<span id="centerpoint"><span class="shadow"></span><span class="x"></span><span class="marker"></span></span>
+{% include "addPoint.html" %}
+{% include "viewPoint.html" %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+	var map = JSON.parse("{{map|escapejs}}")[0]
+</script>
+<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/L.Control.Locate.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}bower_components/moment/min/moment.min.js"></script>
+<script type="text/javascript" src="{{STATIC_URL}}js/map.js"></script>
+{% endblock %}

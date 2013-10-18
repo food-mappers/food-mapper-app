@@ -1,13 +1,15 @@
 django-autoslug
+dj-static
+django-filter
 
 # The server
 django
 # gevent
-#gunicorn
+gunicorn
 
 # Persistence
 psycopg2
-#dj-database-url
+dj-database-url
 #south
 #django-redis
 #boto
