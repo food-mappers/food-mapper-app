@@ -37,9 +37,11 @@ var gaTech = [33.77764915000493, -84.39986944198608];
 
 var map_detail = L.map("map", {
 	zoom: 15,
-	center: gaTech,
+	// center: gaTech,
 	layers: [mapquestOSM]
 });
+
+map_detail.fitBounds(bbox);
 
 //Add geolocation
 
