@@ -25,7 +25,6 @@ or
 	psql -d food_map_test
 	CREATE USER foodmapper WITH PASSWORD 'foodmapper';
 	GRANT ALL PRIVILEGES ON food_map_test to foodmapper;
-	CREATE EXTENSION postgis;
 	\q
 
 3b.) Run sync db
