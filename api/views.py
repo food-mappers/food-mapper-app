@@ -36,6 +36,11 @@ class SourceFilter(django_filters.FilterSet):
         model = Source
         fields = ['map']
 
+class CommentFilter(django_filters.FilterSet):
+    class Meta:
+        model = Comment
+        fields = ['source', 'owner']
+
 class SourceViewSet(viewsets.ModelViewSet):
     """
     This viewset automatically provides `list`, `create`, `retrieve`,
@@ -61,6 +66,7 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    filter_class = CommentFilter
     
     def pre_save(self, obj):
         if (self.request.user.is_authenticated()):
