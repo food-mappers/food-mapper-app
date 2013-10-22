@@ -14,7 +14,7 @@ class SourceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Source
-        fields = ('name', 'description', 'map', 'user', 'latitude', 'longitude', 'created')
+        fields = ('id', 'name', 'description', 'map', 'user', 'latitude', 'longitude', 'created')
         
 
 class MapSerializer(serializers.HyperlinkedModelSerializer):

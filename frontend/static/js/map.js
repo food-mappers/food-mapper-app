@@ -51,9 +51,24 @@ L.control.locate({
 }).addTo(map_detail);
 
 function setupViewModal(val) {
+	console.log(val)
 	$('#view-source-header').html("<h4 class=''>" + val.name + "</h4>")
-	$('#view-source-body').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
+	$('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
 	$('#view-source-modal').modal('show');
+	$.getJSON('/api/comments/?source=' + val.id, function(data){
+		console.log(data)
+		var html = "<hr>";
+		$.each(data, function(i,comment){
+			var user = ''
+			if (comment.user == null){
+				user = 'Anonymous'
+			}else{
+				user = comment.user
+			}
+			html += "Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span><br><small>" + comment.content + "</small><hr>"
+		})
+		$('#comment-block').html(html)
+	})
 }
 
 // Layer group to hold all markers shown on map
