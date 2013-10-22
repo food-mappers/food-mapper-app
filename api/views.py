@@ -1,5 +1,5 @@
-from api.models import Source, Map
-from api.serializers import SourceSerializer, MapSerializer
+from api.models import Source, Map, Comment
+from api.serializers import SourceSerializer, MapSerializer, CommentSerializer
 from rest_framework import generics
 from django.contrib.auth.models import User
 from api.serializers import UserSerializer
@@ -57,3 +57,11 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 	"""
 	queryset = User.objects.all()
 	serializer_class = UserSerializer
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    
+    def pre_save(self, obj):
+        if (self.request.user.is_authenticated()):
+            obj.owner = self.request.user
