@@ -35,4 +35,14 @@ class Source(models.Model):
         # self.map.add(Map.objects.get(name="Public"))
         # self.save()
     class Meta :
-        db_table = "source"        
+        db_table = "source"  
+
+class Comment(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    owner = models.ForeignKey('auth.User', related_name='comment', null=True)
+    content = models.CharField(max_length=400, null=True)
+    source = models.ForeignKey(Source, related_name='comments')
+    def save(self, *args, **kwargs):
+        super(Comment, self).save(*args, **kwargs)
+    class Meta:
+        db_table = "comment"      
