@@ -27,6 +27,18 @@ or
 	GRANT ALL PRIVILEGES ON food_map_test to foodmapper;
 	\q
 
+3a.1) You might have trouble with PostGRES when trying to run the app.
+
+	To complete the syncdb command, I needed to hack around adding links to the libraries needed by postgres.
+
+	First make a directory, then make some symlinks to missing libs.
+
+
+	> mkdir food-mapper-app/env/lib/python2.7/site-packages/lib
+	> ln -s /Applications/Postgres.app/Contents/MacOS/lib/libssl.1.0.0.dylib food-mapper-app/env/lib/python2.7/site-packages/lib/libssl.1.0.0.dylib
+	> ln -s /Applications/Postgres.app/Contents/MacOS/lib/libcrypto.1.0.0.dylib food-mapper-app/env/lib/python2.7/site-packages/lib/libcrypto.1.0.0.dylib 
+
+
 3b.) Run sync db
 
 	python manage.py syncdb

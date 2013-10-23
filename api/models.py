@@ -3,6 +3,8 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from autoslug import AutoSlugField
 
+from taggit.managers import TaggableManager
+
 
 # Create your models here.
 
@@ -12,6 +14,7 @@ class Map(models.Model):
     description = models.CharField(max_length=350, null=True)
     owner = models.ForeignKey('auth.User', related_name='map')
     status = models.BooleanField(default=True)
+    # tags = TaggableManager(blank=True)
     def save(self, *args, **kwargs):
         self.namespace = slugify(self.name)
         super(Map, self).save(*args, **kwargs)
@@ -27,6 +30,7 @@ class Source(models.Model):
     owner = models.ForeignKey('auth.User', related_name='source', null=True)
     map = models.ForeignKey(Map, related_name='sources')
     status = models.BooleanField(default=True)
+    tags = TaggableManager(blank=True)
 
     def save(self, *args, **kwargs):
         # print Map.objects.get(name="Public").object_id

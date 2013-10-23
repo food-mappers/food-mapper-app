@@ -18,7 +18,7 @@ DATABASES = {
         # The following settings are not used with sqlite3:
         'USER': 'foodmapper',
         'PASSWORD': 'foodmapper',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'HOST': 'localhost',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
 }
@@ -141,6 +141,7 @@ INSTALLED_APPS = (
     'autoslug',
     'frontend',
     'api',
+    'taggit',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )

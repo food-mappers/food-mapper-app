@@ -1,6 +1,8 @@
+# core django modules in foodmaps
 django-autoslug
 dj-static
 django-filter
+django-taggit
 
 # The server
 django
