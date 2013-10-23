@@ -4,6 +4,17 @@ from api.models import Source, Map
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
+class TagListSerializer(serializers.WritableField):
+    def from_native(self, data):
+        if type(data) is not list:
+            raise ParseError("expected a list of data")     
+        return data
+     
+    def to_native(self, obj):
+        if type(obj) is not list:
+            return [tag.name for tag in obj.all()]
+        return obj
+
 class SourceSerializer(serializers.ModelSerializer):
     # user = serializers.Field(source='owner.username')
     # highlight = serializers.HyperlinkedIdentityField(view_name='snippet-highlight', format='html')
@@ -11,10 +22,11 @@ class SourceSerializer(serializers.ModelSerializer):
     # community = serializers
     user = serializers.Field(source='owner')
     created = serializers.Field(source='created')
+    tags = TagListSerializer(blank=True)
 
     class Meta:
         model = Source
-        fields = ('name', 'description', 'map', 'user', 'latitude', 'longitude', 'created')
+        fields = ('name', 'description', 'map', 'user', 'latitude', 'longitude', 'created', 'tags')
         
 
 class MapSerializer(serializers.HyperlinkedModelSerializer):
@@ -31,3 +43,4 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('url', 'username', 'map')
+
