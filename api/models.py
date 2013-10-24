@@ -49,8 +49,4 @@ class Comment(models.Model):
     def save(self, *args, **kwargs):
         super(Comment, self).save(*args, **kwargs)
     class Meta:
-<<<<<<< HEAD
         db_table = "comment"      
-=======
-        db_table = "comment"
->>>>>>> 9b599e01d8ff693c8e793e0a20d703fde695ba5e
