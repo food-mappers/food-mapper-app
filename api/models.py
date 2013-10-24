@@ -32,6 +32,9 @@ class Source(models.Model):
     status = models.BooleanField(default=True)
     tags = TaggableManager(blank=True)
 
+    def __unicode__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         # print Map.objects.get(name="Public").object_id
         # self.map = 1#Map.objects.get(name="Public")
