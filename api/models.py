@@ -19,7 +19,7 @@ class Map(models.Model):
         self.namespace = slugify(self.name)
         super(Map, self).save(*args, **kwargs)
     class Meta :
-        db_table = "map"    
+        db_table = "map"
 
 class Source(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -39,7 +39,7 @@ class Source(models.Model):
         # self.map.add(Map.objects.get(name="Public"))
         # self.save()
     class Meta :
-        db_table = "source"  
+        db_table = "source"
 
 class Comment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -49,4 +49,8 @@ class Comment(models.Model):
     def save(self, *args, **kwargs):
         super(Comment, self).save(*args, **kwargs)
     class Meta:
+<<<<<<< HEAD
         db_table = "comment"      
+=======
+        db_table = "comment"
+>>>>>>> 9b599e01d8ff693c8e793e0a20d703fde695ba5e
