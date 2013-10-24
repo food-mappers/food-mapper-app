@@ -44,6 +44,8 @@ or
 	python manage.py syncdb
 	#seed initial data
 	python manage.py loaddata fixtures/map_data
+	#load a map with a lot of points
+	python manage.py loaddata fixtures/lotsofdata
 
 During syncdb create superuser
 
