@@ -8,6 +8,7 @@ print views
 urlpatterns = patterns('',
     url(r'^$', 'frontend.views.index'),
     url(r'^login', 'frontend.views.login'),
+    url(r'^maps/add', 'frontend.views.addmap'),
     url(r'^maps', 'frontend.views.maps'),
     url(r'^map/(?P<slug>[-\w]+)','frontend.views.map'),
     url(r'^user/(?P<username>[-\w]+)/maps','frontend.views.usermaps'),

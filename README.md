@@ -53,4 +53,10 @@ During syncdb create superuser
 
 	python manage.py runserver
 
-5.) Navigate to root [http://127.0.0.1:8000](http://127.0.0.1:8000) - Should see landing page
+5.) Navigate to root [http://127.0.0.1:8000](http://127.0.0.1:8000) - Should see map for now
+
+6.) Signin with user you created - now you can create a community
+
+7.) Navigate to root/communities, create a community
+
+8.) Navigate to root/sources, create a food source.
