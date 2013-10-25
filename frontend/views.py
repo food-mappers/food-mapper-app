@@ -17,6 +17,9 @@ def login(request):
 def maps(request):
 	return render(request, 'maps.html', {'maps' : Map.objects.all()})
 
+def addmap(request):
+	return render(request, 'addMap.html')
+
 def map(request, slug):
 	current_map = Map.objects.filter(namespace=slug)
 	sources = Source.objects.filter(map=current_map[0].id, status=True)

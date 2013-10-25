@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title> Food Mapper | Add a Map </title>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+	<form class="" action="/api/maps/?next=/maps" method="POST">
+	{% csrf_token %}
+	<input type="text" name="name">
+	<input type="text" name="description">
+	<input type="hidden" name="next" value="/">
+	<button class="btn" type="submit">Add</button>
+	</form>
+</div>
+{% endblock %}
