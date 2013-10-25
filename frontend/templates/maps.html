@@ -6,7 +6,9 @@
 
 {% block content %}
 <div class="container">
-	<h2>Food Mapper Maps</h2>
+	<div class="row">
+	<h1>Food Mapper Maps</h1>
+	</div>
 	<div class="row">
 	{% for map in maps %}
 		<div class="col-lg-4">
@@ -15,7 +17,11 @@
 		</div>
 	{% endfor %}
 	</div>
-
+	<div class="row">
+		<h1>Add a Map</h1>
+		<p>A map is a logical grouping for collecting geographic items.</p>
+		<a href="/maps/add" class="btn-lg btn-primary">Add a Map</a>
+	</div>
 
 </div>
 
