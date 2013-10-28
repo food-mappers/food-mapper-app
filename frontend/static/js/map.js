@@ -60,17 +60,26 @@ function setupViewModal(val) {
 	$('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
 	$('#view-source-modal').modal('show');
 	$('#tags-block').html( function(){
-		console.log(val);
-		var text = '<hr><h4>Tags (ugly): </h4>';
-		for ( tag in val.tags ) {
-			text += val.tags[tag] + ', ';
+		// var text = val.tags.join(', '); // this works
+		var tags = val.tags;
+		var text = '';
+		for (i in tags) {
+			text += "<span class='badge badge-default'>" + tags[i] + "</span>"
+			if (i != tags.length) {
+				text += ' '
+			}
 		}
+		text += "<button class='btn btn-xs pull-right'>add a tag</button>"
 		return text;
 	});
 	$.getJSON('/api/comments/?source=' + val.id, function(data){
 		// temp = console.log(data)
-		var html = "<hr>";
+		var html = "";
 		// extract into named function.
+		console.log(data);
+		if (data.length == 0) {
+			html += "<span style='color: light-gray;'>Be the first to comment on " + val.name + "</span>"
+		}
 		$.each(data, function(i,comment){
 			var user = ''
 			if (comment.user == null){
@@ -80,6 +89,8 @@ function setupViewModal(val) {
 			}
 			html += "Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span><br><small>" + comment.content + "</small><hr>"
 		})
+		html += "<button class='btn btn-xs pull-right'>add a comment</button>"
+
 		$('#comment-block').html(html)
 	})
 }
