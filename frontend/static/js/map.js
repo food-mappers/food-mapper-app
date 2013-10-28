@@ -109,8 +109,8 @@ function addSource() {
 	var latlng = map_detail.getCenter()
 	var name = $('#sourceName').val()
 	var desc = $('#sourceDesc').val()
-	var tags = $('#sourceTags').val().split();
-	console.log(tags.split(','));
+	var tags = $('#sourceTags').val();
+	console.log(tags);
 	$('#sourceName').val('');
 	$('#sourceDesc').val('');
 	$('#sourceTags').val('');

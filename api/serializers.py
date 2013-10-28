@@ -6,8 +6,9 @@ from rest_framework import serializers
 
 class TagListSerializer(serializers.WritableField):
     def from_native(self, data):
-        if type(data) is not list:
-            raise ParseError("expected a list of data")     
+        # if type(data) is not list:
+        #     print data
+        #     raise ParseError("expected a list of data")     
         return data
      
     def to_native(self, obj):
