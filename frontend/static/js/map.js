@@ -1,3 +1,5 @@
+// Javascript required for the /map/ page.
+var temp;
 // Getting CSRF token to allow post requests
 
 function getCookie(name) {
@@ -50,14 +52,25 @@ L.control.locate({
 	stopFollowingOnDrag: true
 }).addTo(map_detail);
 
+
+// ITF: the selection and completion of the point modal from callbacks to API
 function setupViewModal(val) {
-	console.log(val)
+	// console.log(val)
 	$('#view-source-header').html("<h4 class=''>" + val.name + "</h4>")
 	$('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
 	$('#view-source-modal').modal('show');
+	$('#tags-block').html( function(){
+		console.log(val);
+		var text = '<hr><h4>Tags (ugly): </h4>';
+		for ( tag in val.tags ) {
+			text += val.tags[tag] + ', ';
+		}
+		return text;
+	});
 	$.getJSON('/api/comments/?source=' + val.id, function(data){
-		console.log(data)
+		// temp = console.log(data)
 		var html = "<hr>";
+		// extract into named function.
 		$.each(data, function(i,comment){
 			var user = ''
 			if (comment.user == null){
@@ -96,13 +109,17 @@ function addSource() {
 	var latlng = map_detail.getCenter()
 	var name = $('#sourceName').val()
 	var desc = $('#sourceDesc').val()
+	var tags = $('#sourceTags').val();
+	console.log(tags);
 	$('#sourceName').val('');
 	$('#sourceDesc').val('');
+	$('#sourceTags').val('');
 	$.post('/api/sources/', {
 		latitude: latlng.lat,
 		longitude: latlng.lng,
 		name: name,
 		description: desc,
+		tags: tags,
 		map: map.pk
 	}, function(data, status) {
 		if (status === 'success') {

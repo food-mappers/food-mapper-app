@@ -41,6 +41,7 @@ class Source(models.Model):
         super(Source, self).save(*args, **kwargs)
         # self.map.add(Map.objects.get(name="Public"))
         # self.save()
+        
     class Meta :
         db_table = "source"
 

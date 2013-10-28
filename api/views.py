@@ -53,6 +53,7 @@ class SourceViewSet(viewsets.ModelViewSet):
     filter_class = SourceFilter
 
     def pre_save(self, obj):
+        
         if (self.request.user.is_authenticated()):
             obj.owner = self.request.user
 
