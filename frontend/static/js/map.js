@@ -55,7 +55,7 @@ L.control.locate({
 
 // ITF: the selection and completion of the point modal from callbacks to API
 function setupViewModal(val) {
-	// console.log(val)
+	console.log(val)
 	$('#view-source-header').html("<h4 class=''>" + val.name + "</h4>")
 	$('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
 	$('#view-source-modal').modal('show');
@@ -69,7 +69,6 @@ function setupViewModal(val) {
 				text += ' '
 			}
 		}
-		text += "<button class='btn btn-xs pull-right'>add a tag</button>"
 		return text;
 	});
 	$.getJSON('/api/comments/?source=' + val.id, function(data){
