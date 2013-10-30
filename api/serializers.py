@@ -6,7 +6,11 @@ from rest_framework import serializers
 
 class TagListSerializer(serializers.WritableField):
     def from_native(self, data):
+        # if type(data) is not list:
+            # raise ParseError("expected a list of data")
+            # data = list(data)     
         print "in from_native: self is: "+repr(self)+" of type "+repr(type(self))
+        print "in from_native: data is: "+repr(data)+" of type "+repr(type(data))
         # here, the data is type 'unicode' and is the string from the form input ie. u'tagword'
         # self is: <api.serializers.TagListSerializer object at 0x103213b10> of type <class 'api.serializers.TagListSerializer'>
         return data
@@ -25,7 +29,7 @@ class SourceSerializer(serializers.ModelSerializer):
     # community = serializers
     user = serializers.Field(source='owner')
     created = serializers.Field(source='created')
-    tags = TagListSerializer(required=False)
+    # tags = TagListSerializer(required=False)
 
     class Meta:
         model = Source

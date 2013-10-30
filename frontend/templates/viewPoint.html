@@ -12,12 +12,20 @@
         <h6>Description</h6>
         <div id="description-block"></div>
         <hr>
-        <h6>Tags</h6>
         <div id="tags-block"></div>
-        <hr>
         <h6>Comments</h6>
         <div id="comment-block" class="small">
         </div>
+        <div id="add-comment-block" class="small" style="display: none">
+          <form role="form">
+          <div class="form-group">
+            <label for="commentText"></label>
+            <input type="textfield" class="form-control" id="commentText" placeholder="Enter a comment">
+          </div>
+          </form>
+          <button type="button" class="btn btn-primary" onClick="addComment()">Submit</button>
+        </div>
+      
       </div>
 <!--       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
