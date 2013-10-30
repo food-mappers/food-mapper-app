@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block content %}
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
 <div class="container">
 	<form class="" action="/api/maps/?next=/maps" method="POST">
 	{% csrf_token %}
@@ -13,5 +16,39 @@
 	<input type="hidden" name="next" value="/">
 	<button class="btn" type="submit">Add</button>
 	</form>
+	<div class="btn" id="submitAjax">AJAX</div>
+
 </div>
+
+<script type="text/javascript">
+
+$('#submitAjax').on('click', submitAjax2);
+
+function submitAjax() {
+	alert('submit');
+	$.getJSON('/api/maps/', function(data){
+		console.log(data);
+	});
+
+}
+function submitAjax2() {
+	alert('submit');
+	$.ajax({
+		type: "POST",
+		url: "/api/maps/",
+		data: {
+			"name": 'testname', 
+			"description": 'testdesc'},
+		dataType: "json",
+		headers: {
+			"X-CSRFToken": '{{csrf_token}}'
+		},
+		success: function(data, textStatus) {
+			window.location.href = '/maps/';
+		}
+	});
+	
+}
+
+</script>
 {% endblock %}
