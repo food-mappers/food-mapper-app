@@ -98,7 +98,6 @@ function setupViewModal(val) {
 			}
 			text += '<hr>';
 		}
-		// text += "<button class='btn btn-xs pull-right'>add a tag</button>"
 		return text;
 	});
 
