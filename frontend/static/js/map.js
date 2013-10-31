@@ -80,23 +80,21 @@ function getComments(val) {
 function setupViewModal(val) {
 	// console.log(val)
 	activeSource = val;
-	$('#view-source-header').html("<h4 class=''>" + val.name + "</h4>")
-	$('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
+	$('#source-name').text(val.name);
+	$('#source-description').text(val.description);
+	$('#source-creation-time').text(moment(val.created).fromNow());
 	$('#view-source-modal').modal('show');
-	$('#tags-block').html( function(){
-		console.log(val);
-		// var text = val.tags.join(', '); // this works
-		// if (typeof(val.tags)=='undefined' || val.tags.length == 0) {
-		// 	return '';
-		// }
+	$('#tags-block').html( function() {
 		var tags = val.tags;
-		var text = '<h6>Tags</h6>';
+		var text = '';
+		if (val.tags.length == 0) { 
+			return '';
+		}
 		for (i in tags) {
 			text += "<span class='badge badge-default'>" + tags[i] + "</span>"
 			if (i != tags.length) {
 				text += ' '
 			}
-			text += '<hr>';
 		}
 		return text;
 	});
@@ -109,24 +107,50 @@ function setupViewModal(val) {
 			html += "<span style='color: light-gray;'>Be the first to comment on " + val.name + "</span>"
 		}
 		$.each(data, function(i,comment){
+			console.log(comment);
 			var user = ''
 			if (comment.user == null){
 				user = 'Anonymous'
 			}else{
 				user = comment.user
 			}
-			html += "Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span><br><small>" + comment.content + "</small><hr>"
+			html += "<div class='comment-element'>"
+			html += comment.content + "<br><small>Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span></small><hr>"
+			html += "</div>"
 		})
-		html += "<button id='show-add-comment-block' class='btn btn-xs pull-right'>add a comment</button>";
-		$('#comment-block').html(html);
-
-		$('#add-comment-block').hide();
-		$('#show-add-comment-block').click( function() { 
-			$('#add-comment-block').toggle();
-		});
-
+		// $('#comment-block').html(html);
+		return html;
 	});
 
+	$('#add-comment-block').hide();
+	$('#show-add-comment-block').click( function() { 
+		$('#add-comment-block').show();
+		$(this).hide();
+	});
+
+	getComments(val);
+}
+
+function getComments(val) {
+	var html = "";
+	$.getJSON('/api/comments/?source=' + val.id, function(data){
+		if (data.length == 0) {
+			html += "<span style='color: light-gray;'>Be the first to comment on " + val.name + "</span>"
+		}
+		$.each(data, function(i,comment){
+			// console.log(comment);
+			var user = ''
+			if (comment.user == null){
+				user = 'Anonymous'
+			}else{
+				user = comment.user
+			}
+			html += "<div class='comment-element'>"
+			html += comment.content + "<br><small>Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span></small><hr>"
+			html += "</div>"
+		})
+		$('#comment-block').html(html);
+	});
 }
 
 // Layer group to hold all markers shown on map
@@ -187,6 +211,7 @@ function addComment(e) {
 	}, function(data, status) {
 		if (status === 'success') {
 			console.log('ok');
+			getComments(activeSource);
 		}
 	})
 }
