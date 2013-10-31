@@ -53,8 +53,15 @@ class SourceViewSet(viewsets.ModelViewSet):
     filter_class = SourceFilter
 
     def pre_save(self, obj):
+        
         if (self.request.user.is_authenticated()):
             obj.owner = self.request.user
+
+    def post_save(self, source, *args, **kwargs):
+        if type(source.tags) is list:
+            saved_source = Source.objects.get(pk=source.pk)
+            for tag in source.tags:
+                saved_source.tags.add(tag)
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
 	"""

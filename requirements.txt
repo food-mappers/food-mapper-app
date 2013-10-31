@@ -31,7 +31,7 @@ djangorestframework
 #django-nose
 #mock
 #mock_django
-#django-debug-toolbar
+django-debug-toolbar
 
 # =====================================
 

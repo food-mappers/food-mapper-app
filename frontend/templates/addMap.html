@@ -9,12 +9,26 @@
 <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
 <div class="container">
-	<form class="" action="/api/maps/?next=/maps" method="POST">
-	{% csrf_token %}
-	<input type="text" name="name">
-	<input type="text" name="description">
-	<input type="hidden" name="next" value="/">
-	<button class="btn" type="submit">Add</button>
+	<form class="" action="/api/maps/" method="POST">
+	<fieldset>
+		{% csrf_token %}
+		<input class="hidden" name="next" value="/maps/"/>
+		<div class="control-group">
+			<label for="id_name" class="control-label">New Map Name</label>
+			<div class="controls">
+				<input id="id_name" name="name" type="text">
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="id_description" class="control-label">New Map Description</label>
+			<div class="controls">
+				<input id="id_description" name="description" type="text">
+			</div>
+		</div>
+		<div class="form-actions">
+			<button class="btn btn-primary" title="submit new map to API">POST</button>
+		</div>
+	</fieldset>
 	</form>
 	<div class="btn" id="submitAjax">AJAX</div>
 

@@ -3,12 +3,15 @@ from rest_framework import serializers
 from api.models import Source, Map, Comment
 from django.contrib.auth.models import User
 from rest_framework import serializers
+from rest_framework.exceptions import ParseError
+
 
 class TagListSerializer(serializers.WritableField):
     def from_native(self, data):
-        if type(data) is not list:
+        datalist = data.split(',')
+        if type(datalist) is not list:
             raise ParseError("expected a list of data")     
-        return data
+        return datalist
      
     def to_native(self, obj):
         if type(obj) is not list:
@@ -22,7 +25,7 @@ class SourceSerializer(serializers.ModelSerializer):
     # community = serializers
     user = serializers.Field(source='owner')
     created = serializers.Field(source='created')
-    tags = TagListSerializer(blank=True)
+    tags = TagListSerializer(required=False)
 
     class Meta:
         model = Source
