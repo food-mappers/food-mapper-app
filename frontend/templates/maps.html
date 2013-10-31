@@ -13,8 +13,15 @@
 		</div>
 		<div class="col-sm-4">
 			<!-- TODO: The following line is stupid -->
-			<br><br><br>
-			<a id="add-map" class="col-sm-6 btn-lg btn-primary pull-right" data-toggle="modal" href="#add-map-modal">Add a Map</a>
+			<br><br>
+			{% if user.is_authenticated %}
+			<br>
+			<a id="add-map" class="col-sm-6 btn btn-lg btn-primary pull-right" data-toggle="modal" href="#add-map-modal">Add a Map</a>
+			{% endif %}
+			{% if user.is_anonymous %}
+			<br>
+			<a href="/login/?next=/maps/add" class="btn btn-lg btn-primary pull-right">Login to add your own map</a>
+			{% endif %}
 		</div>
 		</div>
 	<hr>
@@ -31,19 +38,6 @@
 			</div>
 		</div>
 	{% endfor %}
-	</div>
-	<div class="row">
-		<div class="col-lg-4">
-			{% if user.is_authenticated %}
-			<h2>Add a Map</h2>
-			<p>A map is a logical grouping for collecting geographic items.</p>
-			<a href="/maps/add" class="btn btn-lg btn-primary">Add a Map</a>
-			{% endif %}
-			{% if user.is_anonymous %}
-			<h2>Login to add your own map</h2>
-			<a href="/login/?next=/maps/add" class="btn btn-lg btn-primary">Login</a>
-			{% endif %}
-		</div>
 	</div>
 </div>
 
