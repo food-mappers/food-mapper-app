@@ -14,6 +14,8 @@ class TagListSerializer(serializers.WritableField):
         return datalist
      
     def to_native(self, obj):
+        print "in to_native: self is: "+repr(self)+" of type "+repr(type(self))
+        print "in to_native: obj is: "+repr(obj)+" of type "+repr(type(obj))
         if type(obj) is not list:
             return [tag.name for tag in obj.all()]
         return obj

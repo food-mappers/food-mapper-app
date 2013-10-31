@@ -20,6 +20,9 @@ class Map(models.Model):
     class Meta :
         db_table = "map"
 
+    def __unicode__(self):
+        return self.name +': '+ self.description
+
 class Source(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=150)
