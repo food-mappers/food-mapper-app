@@ -96,8 +96,10 @@ function makeMapTile(data) {
 	console.log(data);
 	var html = '';
 	html += '<div class="col-lg-4">'
-	html += '<a href="/map/' + data.namespace + '"><h3>'+ data.name + '</h3></a>'
-	html += '<p>' + data.description + '</p></div>';
+	html +=	'<div class="panel panel-warning">'
+	html +=	'<div class="panel-heading">'
+	html += 	'<a href="/map/' + data.namespace + '"><h3>'+ data.name + '</h3></a></div>'
+	html += '<div class="panel-body">' + data.description + '</div></div>';
 	console.log(html);
 	return html;
 }
