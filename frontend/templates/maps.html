@@ -13,21 +13,19 @@
 		</div>
 		<div class="col-sm-4">
 			<!-- TODO: The following line is stupid -->
-			<br><br>
+			<br><br><br>
 			{% if user.is_authenticated %}
-			<br>
-			<a id="add-map" class="col-sm-6 btn btn-lg btn-primary pull-right" data-toggle="modal" href="#add-map-modal">Add a Map</a>
+				<a id="add-map" class="col-sm-6 btn-lg btn btn-primary pull-right" data-toggle="modal" href="#add-map-modal">Add a Map</a>
 			{% endif %}
 			{% if user.is_anonymous %}
-			<br>
-			<a href="/login/?next=/maps/add" class="btn btn-lg btn-primary pull-right">Login to add your own map</a>
+				<a class="col-sm-6 btn btn-lg btn-primary pull-right" href='/login/?next/maps'>Login first</a>
 			{% endif %}
 		</div>
 		</div>
 	<hr>
 	<div id="map-tiles" class="row">
 	{% for map in maps %}
-		<div class="col-lg-4">
+		<div class="col-sm-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<a href="/map/{{map.namespace}}"><h3>{{map.name}}</h3></a>
@@ -67,8 +65,8 @@ function addMap(){
 		description: map_description,
 	}, function(data, success) { 
 			if ( success === "success") {
-				console.log("done: " + success); 
-				console.log(data);
+				// console.log("done: " + success); 
+				// console.log(data);
 				$('#map-tiles').prepend( makeMapTile(data) );
 			}
 			else {
@@ -78,7 +76,6 @@ function addMap(){
 }
 
 function makeMapTile(data) {
-	console.log(data);
 	var html = '';
 	html += '<div class="col-lg-4">'
 	html +=	'<div class="panel panel-warning">'
@@ -86,6 +83,7 @@ function makeMapTile(data) {
 	html += 	'<a href="/map/' + data.namespace + '"><h3>'+ data.name + '</h3></a></div>'
 	html += '<div class="panel-body">' + data.description + '</div></div>';
 	console.log(html);
+
 	return html;
 }
 
