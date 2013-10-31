@@ -4,25 +4,74 @@
 	background-position: middle top;
 	width:1300px;
 	height: 450px;
- 	padding:90px 240px 100px; 
+ 	padding: 90px 240px 100px; 
+ 	margin-top: 10px;
 }
 .jumbotron{
-	padding-top: 12px;
-	padding-bottom: 5px;
+	padding-top: 50px;
+	padding-bottom: 50px;
 	margin-bottom: 0px;
 }
 
 .row{
 	margin-left: -30px;
 }
+
 div {
 display: block;
 }
 
 .span4{
-	width:370px;
+	width:500px;
+	height:330px;
+	display: block;
 	float: left;
-	min-height: 1px;
 	margin-left: 30px;
+	margin-right: 50px;
 	padding-top: 0px;
+	padding-bottom: 10px;
+	background-color: #eee;
+}
+
+.heading{
+	display: block;
+	padding: 60px 30px 30px;
+	font-size: 40px;
+	clear:both;
+}
+
+.span4 h2{
+	margin-top: 10px;
+	margin-bottom: 0px;
+}
+
+#space{
+padding-top: 150px;
+}
+
+#larger{
+	width:500px;
+	height:470px;
+}
+
+
+.container p{
+display: block;
+font-size: 18px;
+line-height: 1.5;
+padding-bottom: 10px;
+}
+.container img {
+display: block;
+padding: 10 auto 30px;
+}
+
+.container hr{
+border-top: 1px solid #eeeeee;
+padding: 10px 0 0;
+margin: 20px 0 0px;
+}
+
+.footer p{
+	font-size: 16px
 }
