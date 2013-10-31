@@ -6,26 +6,19 @@
 
 {% block content %}
 <div class="container">
-	<form class="" action="/api/maps/" method="POST">
-	<fieldset>
+	<h2>Add a new map</h2>
+	<form class=" col-md-4" action="/maps/add" method="POST">
 		{% csrf_token %}
-		<input class="hidden" name="next" value="/maps/"/>
-		<div class="control-group">
-			<label for="id_name" class="control-label">New Map Name</label>
-			<div class="controls">
-				<input id="id_name" name="name" type="text">
-			</div>
+		<div class="form-group">
+			<label for="id_name">New map name</label>
+			<input class="form-control" id="id_name" name="name" type="text" placeholder="e.g. Community Group Name">
 		</div>
-		<div class="control-group">
-			<label for="id_description" class="control-label">New Map Description</label>
-			<div class="controls">
-				<input id="id_description" name="description" type="text">
-			</div>
+		<div class="form-group">
+			<label for="id_description">Describe the map</label>
+			<textarea class="form-control" id="id_description" name="description" rows="3" placeholder="This map shows food resources in x community"></textarea>
 		</div>
-		<div class="form-actions">
-			<button class="btn btn-primary" title="submit new map to API">POST</button>
-		</div>
-	</fieldset>
+		<input type="hidden" name="next" value="hello" />
+		<input type="Submit" class="btn btn-primary" value="Add map">
 	</form>
 </div>
 {% endblock %}
