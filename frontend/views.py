@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.template.response import TemplateResponse
 from api.models import Map, Source
 from django.core import serializers
-from django.http import HttpResponse, Http404, HttpResponseNotFound
+from django.http import HttpResponse, Http404, HttpResponseNotFound, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 
 def index(request):
@@ -18,6 +18,10 @@ def maps(request):
 	return render(request, 'maps.html', {'maps' : Map.objects.all()})
 
 def addmap(request):
+	if request.method == 'POST':
+		map = Map(name=request.POST.get('name'), owner=request.user)
+		map.save()
+		return HttpResponseRedirect('/map/' + map.namespace)
 	return render(request, 'addMap.html')
 
 def map(request, slug):

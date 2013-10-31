@@ -21,8 +21,14 @@
 	<div id="map-tiles" class="row">
 	{% for map in maps %}
 		<div class="col-lg-4">
-			<a href="/map/{{map.namespace}}"><h3>{{map.name}}</h3></a>
-			<p>{{map.description}}</p>
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<a href="/map/{{map.namespace}}"><h3>{{map.name}}</h3></a>
+				</div>
+				<div class="panel-body">
+					{{map.description}}
+				</div>
+			</div>
 		</div>
 	{% endfor %}
 	</div>
