@@ -55,36 +55,42 @@ L.control.locate({
 
 
 function getComments(val) {
-		$.getJSON('/api/comments/?source=' + val.id, function(data) {
+	console.log(val)
+	$.getJSON('/api/comments/?source=' + val.id, function(data) {
+		console.log(data)
 		var html = "";
 		if (data.length == 0) {
 			html += "<span style='color: light-gray;'>Be the first to comment on " + val.name + "</span>"
 		}
-		$.each(data, function(i,comment){
+		$.each(data, function(i, comment) {
 			var user = ''
-			if (comment.user == null){
+			if (comment.user == null) {
 				user = 'Anonymous'
-			}else{
+			} else {
 				user = comment.user
 			}
 			html += "Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span><br><small>" + comment.content + "</small><hr>"
 		})
-		html += "<a href='#' id='show-add-comment-block' class='btn btn-xs pull-right'>add a comment</a>"
+		html += "<button id='show-add-comment-block' class='btn btn-xs pull-right'>add a comment</button><br>";
+		$('#comment-block').html(html);
 
-		$('#comment-block').html(html)
-
-	})
+		$('#add-comment-block').hide();
+		$('#show-add-comment-block').click(function() {
+			$('#add-comment-block').toggle();
+		});
+	});
 }
 
 // ITF: the selection and completion of the point modal from callbacks to API
+
 function setupViewModal(val) {
 	// console.log(val)
 	activeSource = val;
 	$('#view-source-header').html("<h4 class=''>" + val.name + "</h4>")
 	$('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
 	$('#view-source-modal').modal('show');
-	$('#tags-block').html( function(){
-		console.log(val);
+	$('#tags-block').html(function() {
+		// console.log(val);
 		// var text = val.tags.join(', '); // this works
 		// if (typeof(val.tags)=='undefined' || val.tags.length == 0) {
 		// 	return '';
@@ -96,36 +102,14 @@ function setupViewModal(val) {
 			if (i != tags.length) {
 				text += ' '
 			}
-			text += '<hr>';
 		}
+		text += '<hr>';
 		return text;
 	});
+	getComments(val)
 
 
 	// extract this into a function
-	$.getJSON('/api/comments/?source=' + val.id, function(data){
-		var html = "";
-		if (data.length == 0) {
-			html += "<span style='color: light-gray;'>Be the first to comment on " + val.name + "</span>"
-		}
-		$.each(data, function(i,comment){
-			var user = ''
-			if (comment.user == null){
-				user = 'Anonymous'
-			}else{
-				user = comment.user
-			}
-			html += "Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span><br><small>" + comment.content + "</small><hr>"
-		})
-		html += "<button id='show-add-comment-block' class='btn btn-xs pull-right'>add a comment</button>";
-		$('#comment-block').html(html);
-
-		$('#add-comment-block').hide();
-		$('#show-add-comment-block').click( function() { 
-			$('#add-comment-block').toggle();
-		});
-
-	});
 
 }
 
@@ -137,7 +121,7 @@ var allMarkers = new L.layerGroup();
 function getSources() {
 	$.getJSON('/api/sources/?map=' + map.pk, function(data) {
 		$.each(data, function(i, val) {
-			allMarkers.addLayer(L.marker([val.latitude, val.longitude]).on('click', function(e){
+			allMarkers.addLayer(L.marker([val.latitude, val.longitude]).on('click', function(e) {
 				setupViewModal(val)
 			}))
 		})
@@ -175,8 +159,8 @@ function addSource() {
 }
 
 function addComment(e) {
-	console.log(e);
-	console.log(activeSource)
+	// console.log(e);
+	// console.log(activeSource)
 	// outline in red for now, should use visual transition to alert submission progress/success
 	// $('#add-comment-block').style('border: 1px solid red');
 	var comment = $('#commentText').val();
@@ -189,4 +173,5 @@ function addComment(e) {
 			console.log('ok');
 		}
 	})
+	getComments(activeSource)
 }
