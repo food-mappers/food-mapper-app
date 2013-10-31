@@ -32,31 +32,22 @@
 		</div>
 	{% endfor %}
 	</div>
-
-<!-- 	<form class="form-horizontal" id="addMapForm" role="form" style="display: none" action="/api/maps/" method="POST">
-		{% csrf_token %}
-		<div class="form-group">
-			<label for="name" class="control-label col-sm-2">New Map Name</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="name" name="name" placeholder="New map name">
-			</div>
+	<div class="row">
+		<div class="col-lg-4">
+			{% if user.is_authenticated %}
+			<h2>Add a Map</h2>
+			<p>A map is a logical grouping for collecting geographic items.</p>
+			<a href="/maps/add" class="btn btn-lg btn-primary">Add a Map</a>
+			{% endif %}
+			{% if user.is_anonymous %}
+			<h2>Login to add your own map</h2>
+			<a href="/login/?next=/maps/add" class="btn btn-lg btn-primary">Login</a>
+			{% endif %}
 		</div>
-		<div class="form-group">
-			<label for="description" class="control-label col-sm-2">New Map Description</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="description" name="description" placeholder="New map description">
-			</div>
-		</div>
-		<div class="form-group">
-			<div class="col-sm-offset-2 col-sm-10">
-				<button id="submit_button" class="btn btn-primary" title="submit new map to API">POST</button>
-			</div>
-		</div>
-	</form>
- -->
+	</div>
 </div>
-{% include "addMap.html" %}
 
+{% include "addMap.html" %}
 {% endblock %}
 
 {% block scripts %}
