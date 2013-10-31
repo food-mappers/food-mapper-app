@@ -11,14 +11,14 @@ class Map(models.Model):
     owner = models.ForeignKey('auth.User', related_name='map')
     status = models.BooleanField(default=True)
 
-    def __unicode__(self):
-        return self.name
-
     def save(self, *args, **kwargs):
         self.namespace = slugify(self.name)
         super(Map, self).save(*args, **kwargs)
     class Meta :
         db_table = "map"
+
+    def __unicode__(self):
+        return str(self.name) + ": " + str(self.description)
 
 class Source(models.Model):
     created = models.DateTimeField(auto_now_add=True)

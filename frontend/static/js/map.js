@@ -1,5 +1,6 @@
 // Javascript required for the /map/ page.
 var temp;
+var activeSource;
 // Getting CSRF token to allow post requests
 
 function getCookie(name) {
@@ -53,29 +54,9 @@ L.control.locate({
 }).addTo(map_detail);
 
 
-// ITF: the selection and completion of the point modal from callbacks to API
-function setupViewModal(val) {
-	console.log(val)
-	$('#view-source-header').html("<h4 class=''>" + val.name + "</h4>")
-	$('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
-	$('#view-source-modal').modal('show');
-	$('#tags-block').html( function(){
-		// var text = val.tags.join(', '); // this works
-		var tags = val.tags;
-		var text = '';
-		for (i in tags) {
-			text += "<span class='badge badge-default'>" + tags[i] + "</span>"
-			if (i != tags.length) {
-				text += ' '
-			}
-		}
-		return text;
-	});
-	$.getJSON('/api/comments/?source=' + val.id, function(data){
-		// temp = console.log(data)
+function getComments(val) {
+		$.getJSON('/api/comments/?source=' + val.id, function(data) {
 		var html = "";
-		// extract into named function.
-		console.log(data);
 		if (data.length == 0) {
 			html += "<span style='color: light-gray;'>Be the first to comment on " + val.name + "</span>"
 		}
@@ -88,10 +69,64 @@ function setupViewModal(val) {
 			}
 			html += "Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span><br><small>" + comment.content + "</small><hr>"
 		})
-		html += "<button class='btn btn-xs pull-right'>add a comment</button>"
+		html += "<a href='#' id='show-add-comment-block' class='btn btn-xs pull-right'>add a comment</a>"
 
 		$('#comment-block').html(html)
+
 	})
+}
+
+// ITF: the selection and completion of the point modal from callbacks to API
+function setupViewModal(val) {
+	// console.log(val)
+	activeSource = val;
+	$('#view-source-header').html("<h4 class=''>" + val.name + "</h4>")
+	$('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
+	$('#view-source-modal').modal('show');
+	$('#tags-block').html( function(){
+		console.log(val);
+		// var text = val.tags.join(', '); // this works
+		// if (typeof(val.tags)=='undefined' || val.tags.length == 0) {
+		// 	return '';
+		// }
+		var tags = val.tags;
+		var text = '<h6>Tags</h6>';
+		for (i in tags) {
+			text += "<span class='badge badge-default'>" + tags[i] + "</span>"
+			if (i != tags.length) {
+				text += ' '
+			}
+			text += '<hr>';
+		}
+		return text;
+	});
+
+
+	// extract this into a function
+	$.getJSON('/api/comments/?source=' + val.id, function(data){
+		var html = "";
+		if (data.length == 0) {
+			html += "<span style='color: light-gray;'>Be the first to comment on " + val.name + "</span>"
+		}
+		$.each(data, function(i,comment){
+			var user = ''
+			if (comment.user == null){
+				user = 'Anonymous'
+			}else{
+				user = comment.user
+			}
+			html += "Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span><br><small>" + comment.content + "</small><hr>"
+		})
+		html += "<button id='show-add-comment-block' class='btn btn-xs pull-right'>add a comment</button>";
+		$('#comment-block').html(html);
+
+		$('#add-comment-block').hide();
+		$('#show-add-comment-block').click( function() { 
+			$('#add-comment-block').toggle();
+		});
+
+	});
+
 }
 
 // Layer group to hold all markers shown on map
@@ -120,7 +155,7 @@ function addSource() {
 	var name = $('#sourceName').val()
 	var desc = $('#sourceDesc').val()
 	var tags = $('#sourceTags').val();
-	console.log(tags);
+	// console.log(tags);
 	$('#sourceName').val('');
 	$('#sourceDesc').val('');
 	$('#sourceTags').val('');
@@ -135,6 +170,23 @@ function addSource() {
 		if (status === 'success') {
 			allMarkers.clearLayers();
 			getSources();
+		}
+	})
+}
+
+function addComment(e) {
+	console.log(e);
+	console.log(activeSource)
+	// outline in red for now, should use visual transition to alert submission progress/success
+	// $('#add-comment-block').style('border: 1px solid red');
+	var comment = $('#commentText').val();
+	$('#commentText').val('');
+	$.post('/api/comments/', {
+		source: activeSource.id,
+		content: comment,
+	}, function(data, status) {
+		if (status === 'success') {
+			console.log('ok');
 		}
 	})
 }

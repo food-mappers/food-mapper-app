@@ -7,11 +7,25 @@
 {% block content %}
 <div class="container">
 	<div class="row">
-	<h1>Food Mapper Maps</h1>
-	</div>
-	<div class="row">
+		<div class="col-sm-8">
+		<h1>Food Mapper Maps</h1>
+			<p>To use FoodMapper, you create <em>maps</em> then place points on them to describe and geographically chart the <em>food resources</em> in your community. Maps can be as small or as large as you want. They should have good <em>names</em> and <em>descriptions</em> so that other users can find them and contribute to them.</p>
+		</div>
+		<div class="col-sm-4">
+			<!-- TODO: The following line is stupid -->
+			<br><br><br>
+			{% if user.is_authenticated %}
+				<a id="add-map" class="col-sm-6 btn-lg btn btn-primary pull-right" data-toggle="modal" href="#add-map-modal">Add a Map</a>
+			{% endif %}
+			{% if user.is_anonymous %}
+				<a class="col-sm-6 btn btn-lg btn-primary pull-right" href='/login/?next/maps'>Login first</a>
+			{% endif %}
+		</div>
+		</div>
+	<hr>
+	<div id="map-tiles" class="row">
 	{% for map in maps %}
-		<div class="col-lg-4">
+		<div class="col-sm-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<a href="/map/{{map.namespace}}"><h3>{{map.name}}</h3></a>
@@ -23,23 +37,67 @@
 		</div>
 	{% endfor %}
 	</div>
-	<div class="row">
-		<div class="col-lg-4">
-			{% if user.is_authenticated %}
-			<h2>Add a Map</h2>
-			<p>A map is a logical grouping for collecting geographic items.</p>
-			<a href="/maps/add" class="btn btn-lg btn-primary">Add a Map</a>
-			{% endif %}
-			{% if user.is_anonymous %}
-			<h2>Login to add your own map</h2>
-			<a href="/login/?next=/maps/add" class="btn btn-lg btn-primary">Login</a>
-			{% endif %}
-		</div>
-	</div>
-
 </div>
+{% include "addMap.html" %}
 
 {% endblock %}
 
 {% block scripts %}
+<script>
+
+// Sets up AJAX requests to use CSRF Token
+$(function() {
+	$.ajaxSetup({
+		headers: {
+			"X-CSRFToken": getCookie("csrftoken")
+		}
+	});
+});
+
+function addMap(){
+	$('#add-map-modal').modal('hide')
+	var map_name = $('#mapName').val();
+	var map_description = $('#mapDescription').val();
+	$('#mapName').val('');
+	$('#mapDescription').val('');
+	$.post('/api/maps/',{
+		name: map_name,
+		description: map_description,
+	}, function(data, success) { 
+			if ( success === "success") {
+				// console.log("done: " + success); 
+				// console.log(data);
+				$('#map-tiles').prepend( makeMapTile(data) );
+			}
+			else {
+				console.log("failed: "+data);
+			}
+	});
+}
+
+function makeMapTile(data) {
+	var html = '';
+	html += '<div class="col-sm-4"><div class="panel panel-default">'
+	html += '<div class="panel-heading"><a href="/map/' + data.namespace + '"><h3>'+ data.name + '</h3></a></div>'
+	html +=  '<div class="panel-body">' + data.description + '</div></div>';
+	return html;
+}
+
+function getCookie(name) {
+	var cookieValue = null;
+	if (document.cookie && document.cookie != '') {
+		var cookies = document.cookie.split(';');
+		for (var i = 0; i < cookies.length; i++) {
+			var cookie = jQuery.trim(cookies[i]);
+			// Does this cookie string begin with the name we want?
+			if (cookie.substring(0, name.length + 1) == (name + '=')) {
+				cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+				break;
+			}
+		}
+	}
+	return cookieValue;
+}
+
+</script>
 {% endblock %}

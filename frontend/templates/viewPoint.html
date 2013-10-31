@@ -4,7 +4,7 @@
       <div class="modal-header">
         <!-- close modal button in top right corner -->
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h6>Source Name</h6>
+        <h6>Foodmap Resource Name</h6>
         <div id="view-source-header">
         </div>
       </div>
@@ -12,17 +12,26 @@
         <h6>Description</h6>
         <div id="description-block"></div>
         <hr>
-        <h6>Tags</h6>
         <div id="tags-block"></div>
-        <hr>
         <h6>Comments</h6>
         <div id="comment-block" class="small">
         </div>
+        <div id="add-comment-block" class="small" style="display: none">
+          <form role="form">
+          <div class="form-group">
+            <label for="commentText"></label>
+            <input type="textfield" class="form-control" id="commentText" placeholder="Enter a comment">
+          </div>
+          </form>
+          <button type="button" class="btn btn-primary" onClick="addComment()">Submit</button>
+        </div>
+      
       </div>
-      <div class="modal-footer">
+<!--       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary" onClick="">Save</button> -->
+        <button type="button" class="btn btn-primary" onClick="">Save</button>
       </div>
+ -->    
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
