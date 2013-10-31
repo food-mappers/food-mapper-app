@@ -19,9 +19,12 @@ def maps(request):
 
 def addmap(request):
 	if request.method == 'POST':
-		map = Map(name=request.POST.get('name'), owner=request.user)
-		map.save()
-		return HttpResponseRedirect('/map/' + map.namespace)
+		if request.user.is_authenticated():
+			map = Map(name=request.POST.get('name'), owner=request.user, description=request.POST.get('description'))
+			map.save()
+			return HttpResponseRedirect('/map/' + map.namespace)
+		else:
+			return HttpResponseRedirect('/login/?next=/maps/add')
 	return render(request, 'addMap.html')
 
 def map(request, slug):

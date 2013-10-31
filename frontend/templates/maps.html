@@ -25,9 +25,15 @@
 	</div>
 	<div class="row">
 		<div class="col-lg-4">
+			{% if user.is_authenticated %}
 			<h2>Add a Map</h2>
 			<p>A map is a logical grouping for collecting geographic items.</p>
-			<a href="/maps/addMap.html" class="btn btn-lg btn-primary">Add a Map</a>
+			<a href="/maps/add" class="btn btn-lg btn-primary">Add a Map</a>
+			{% endif %}
+			{% if user.is_anonymous %}
+			<h2>Login to add your own map</h2>
+			<a href="/login/?next=/maps/add" class="btn btn-lg btn-primary">Login</a>
+			{% endif %}
 		</div>
 	</div>
 
