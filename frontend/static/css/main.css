@@ -8,6 +8,14 @@ label {
 input[type="radio"], input[type="checkbox"] {
     margin: 0;
 }
+.highblock{
+  background-image:url('../images/frontbanner.jpg');
+  background-repeat:no-repeat;
+  background-position: middle top;
+  width:1300px;
+  height: 450px;
+  padding:90px 240px 100px; 
+}
 #loading {
     position: absolute;
     width: 220px;
