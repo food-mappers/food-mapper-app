@@ -71,7 +71,7 @@ function getComments(val) {
 			}
 			html += "Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span><br><small>" + comment.content + "</small><hr>"
 		})
-		html += "<button id='show-add-comment-block' class='btn btn-xs pull-right'>add a comment</button><br>";
+		html += "<button id='show-add-comment-block' class='btn btn-info btn-xs pull-right'>add a comment</button><br>";
 		$('#comment-block').html(html);
 
 		$('#add-comment-block').hide();
@@ -159,10 +159,6 @@ function addSource() {
 }
 
 function addComment(e) {
-	// console.log(e);
-	// console.log(activeSource)
-	// outline in red for now, should use visual transition to alert submission progress/success
-	// $('#add-comment-block').style('border: 1px solid red');
 	var comment = $('#commentText').val();
 	$('#commentText').val('');
 	$.post('/api/comments/', {
@@ -170,8 +166,9 @@ function addComment(e) {
 		content: comment,
 	}, function(data, status) {
 		if (status === 'success') {
-			console.log('ok');
+			getComments(activeSource)
+			// console.log('ok');
 		}
 	})
-	getComments(activeSource)
+	
 }
