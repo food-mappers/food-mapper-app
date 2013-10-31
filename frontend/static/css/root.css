@@ -1,0 +1,28 @@
+#highblock{
+	background-image:url('./images/front9.jpg');/*or http://askgeorgie.com/wp-content/uploads/2011/01/fruit.jpg */
+	background-repeat:no-repeat;
+	background-position: middle top;
+	width:1300px;
+	height: 450px;
+ 	padding:90px 240px 100px; 
+}
+.jumbotron{
+	padding-top: 12px;
+	padding-bottom: 5px;
+	margin-bottom: 0px;
+}
+
+.row{
+	margin-left: -30px;
+}
+div {
+display: block;
+}
+
+.span4{
+	width:370px;
+	float: left;
+	min-height: 1px;
+	margin-left: 30px;
+	padding-top: 0px;
+}
