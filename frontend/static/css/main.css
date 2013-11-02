@@ -1,3 +1,4 @@
+
 body {
     padding-top: 50px;
 }
@@ -9,12 +10,14 @@ input[type="radio"], input[type="checkbox"] {
     margin: 0;
 }
 .highblock{
-  background-image:url('../images/frontbanner.jpg');
+  /*background-image:url('../images/frontbanner.jpg');
   background-repeat:no-repeat;
-  background-position: middle top;
-  width:1300px;
-  height: 450px;
-  padding:90px 240px 100px; 
+  background-position: middle top;*/
+  padding-right: 0px;
+  padding-left: 5px;
+  display: table-cell;  
+  vertical-align:middle;  
+  text-align:center;  
 }
 #loading {
     position: absolute;
