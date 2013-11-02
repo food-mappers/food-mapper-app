@@ -14,7 +14,12 @@ input[type="radio"], input[type="checkbox"] {
   display: block;
   margin:0;
 }
-.img-responsive{
+#hr1{
+  margin-top: 80px;
+  margin-bottom: 80px;
+  border:0;
+}
+#center{
   margin:auto;
 }
 #loading {
