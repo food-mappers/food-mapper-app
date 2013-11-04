@@ -53,39 +53,15 @@ L.control.locate({
 	stopFollowingOnDrag: true
 }).addTo(map_detail);
 
-
-function getComments(val) {
-	console.log(val)
-	$.getJSON('/api/comments/?source=' + val.id, function(data) {
-		console.log(data)
-		var html = "";
-		if (data.length == 0) {
-			html += "<span style='color: light-gray;'>Be the first to comment on " + val.name + "</span>"
-		}
-		$.each(data, function(i, comment) {
-			var user = ''
-			if (comment.user == null) {
-				user = 'Anonymous'
-			} else {
-				user = comment.user
-			}
-			html += "Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span><br><small>" + comment.content + "</small><hr>"
-		})
-		html += "<button id='show-add-comment-block' class='btn btn-info btn-xs pull-right'>add a comment</button><br>";
-		$('#comment-block').html(html);
-
-		$('#add-comment-block').hide();
-		$('#show-add-comment-block').click(function() {
-			$('#add-comment-block').toggle();
-		});
-	});
-}
-
 // ITF: the selection and completion of the point modal from callbacks to API
-
+// within this function, setup the interactions (add comment, etc, appropriate to 
+// this modal construction and desctruction)
 function setupViewModal(val) {
-	// console.log(val)
 	activeSource = val;
+	$('#add-comment-block').hide(); 
+	$('#show-add-comment-block').show();
+
+	// populate the fields in the viewPoint.html modal using jQuery selectors
 	$('#source-name').text(val.name);
 	$('#source-description').text(val.description);
 	$('#source-creation-time').text(moment(val.created).fromNow());
@@ -93,42 +69,51 @@ function setupViewModal(val) {
 	$('#tags-block').html( function() {
 		var tags = val.tags;
 		var text = '';
-		if (val.tags.length == 0) { 
+		if (val.tags.length == 0) { // no tags yet
 			return '';
 		}
-		for (i in tags) {
+		text += '<hr>';
+		for (i in tags) { // wrap each tag in a style badge divided by a space
 			text += "<span class='badge badge-default'>" + tags[i] + "</span>"
 			if (i != tags.length) {
-				text += ' '
+				text += ' '; 
 			}
 		}
-		text += '<hr>';
 		return text;
 	});
-	getComments(val)
-
-
-	// extract this into a function
+	// populate the comments block...
 	getComments(val);
+
+	// hook up the click interactions for the addComments functionality
+	$('#show-add-comment-block').on('click', function(){ 
+		$('#add-comment-block').show(); 
+		$('#show-add-comment-block').hide();
+	})
 }
 
+// This function should strictly make a json call, receive the comment set from the API, then:
+// if no comments returned, write 'be the first to comment on...'
+// if 1 or more comments exist, for each, write a .comment-item div in the modal viewPoint.html
+//
+// >>> DO NOT write or overwrite click interactions in this function. <<<
+//
 function getComments(val) {
-	var html = "";
-	$.getJSON('/api/comments/?source=' + val.id, function(data){
+	$.getJSON('/api/comments/?source=' + val.id, function(data) {
+		var html = "";
 		if (data.length == 0) {
 			html += "<span style='color: light-gray;'>Be the first to comment on " + val.name + "</span>"
 		}
-		$.each(data, function(i,comment){
-			// console.log(comment);
+		$.each(data, function(i, comment) {
 			var user = ''
-			if (comment.user == null){
-				user = 'Anonymous'
-			}else{
-				user = comment.user
+			if (comment.user == null) {
+				user = 'Anonymous';
+			} else {
+				user = comment.user;
 			}
-			html += "<div class='comment-element'>"
-			html += comment.content + "<br><small>Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span></small><hr>"
-			html += "</div>"
+			html += "<div class='comment-element'>";
+			html += comment.content + "<br><small>Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span></small><hr>";
+			html += "</div>";
+
 		})
 		$('#comment-block').html(html);
 	});
@@ -138,22 +123,20 @@ function getComments(val) {
 var allMarkers = new L.layerGroup();
 
 // Get food sources and parse them to markers in layer group
-
 function getSources() {
 	$.getJSON('/api/sources/?map=' + map.pk, function(data) {
 		$.each(data, function(i, val) {
 			allMarkers.addLayer(L.marker([val.latitude, val.longitude]).on('click', function(e) {
-				setupViewModal(val)
+				setupViewModal(val);
 			}))
 		})
-		allMarkers.addTo(map_detail)
+		allMarkers.addTo(map_detail);
 	})
 }
 
 getSources();
 
 //post new food source on success clear markers and get all markers... need to modify to get ?Created > initial pageload date/time
-
 function addSource() {
 	$('#add-source-modal').modal('hide')
 	var latlng = map_detail.getCenter()
@@ -188,7 +171,6 @@ function addComment(e) {
 	}, function(data, status) {
 		if (status === 'success') {
 			getComments(activeSource)
-			// console.log('ok');
 		}
 	})
 	
