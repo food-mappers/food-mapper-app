@@ -155,8 +155,8 @@ function addSource() {
 		tags: tags,
 		map: map.pk
 	}, function(data, status) {
+		refreshScroll();
 		if (status === 'success') {
-			refreshScroll();
 			allMarkers.clearLayers();
 			getSources();
 		}
@@ -170,8 +170,8 @@ function addComment(e) {
 		source: activeSource.id,
 		content: comment,
 	}, function(data, status) {
+		refreshScroll();
 		if (status === 'success') {
-			refreshScroll();
 			getComments(activeSource);
 		}
 	})
