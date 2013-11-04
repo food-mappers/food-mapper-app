@@ -156,6 +156,7 @@ function addSource() {
 		map: map.pk
 	}, function(data, status) {
 		if (status === 'success') {
+			refreshScroll();
 			allMarkers.clearLayers();
 			getSources();
 		}
@@ -170,8 +171,13 @@ function addComment(e) {
 		content: comment,
 	}, function(data, status) {
 		if (status === 'success') {
-			getComments(activeSource)
+			refreshScroll();
+			getComments(activeSource);
 		}
 	})
 	
+}
+
+function refreshScroll(){
+    $(window).scrollTop(0)    
 }
