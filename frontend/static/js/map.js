@@ -129,70 +129,35 @@ function updateSource(val) {
 
 }
 // ITF: the selection and completion of the point modal from callbacks to API
-
+$.fn.editable.defaults.mode = 'inline';
 function setupViewModal(val) {
 	// console.log(val)
 	activeSource = val;
 //	console.log(activeSource.user);
-	if (username != val.user) {
+	$('#source-creation-time').text(moment(val.created).fromNow())
+	if (username == val.user || username == map.user) {
+		
 		$('#source-name').text(val.name)
 		$('#source-description').text(val.description);
-		$('#source-creation-time').text(moment(val.created).fromNow())
-	}
-	else{
-		$('#source-name').text(val.name)
-		$('#source-description').text(val.description);
-		$('#source-creation-time').text(moment(val.created).fromNow());
 		$('#delete-button').html("<button id='delete-source-btn' class='btn btn-danger pull-right'>Delete this food source</button><br>")
 		// $('#view-source-header').html("<a href='#' id='source-name'>" + val.name + "</a><button id='delete-source-btn' class='btn btn-info btn-xs pull-right'>Delete</button><br>");
 		$('#source-name').editable({
 			type : 'text',
-			url : function(params) {
-				$.ajax({
-					type : "PATCH",
-					url : '/api/sources/' + val.id + '/',
-					data : {
-						name : params.value,
-						map : val.map,
-						id : val.id
-					},
-					success : function(data, status) {
-						if (status === 'success') {
-							$('#source-name').text(params.value);
-							val.name = params.value;
-							console.log("edited the source name");
-						}
-					},
-					dataType : "json"
-				});
-			},
+			url : function(params){
+				updateModalContent(params, val, "name", '#source-name')
+				},
 			title : 'Food Source Name',
 		});
 		
 		// $('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + "<a href='#' id=source-description >"+val.description +"</a>");
 		$('#source-description').editable({
 			type : 'text',
-			url : function(params) {
-				$.ajax({
-					type : "PATCH",
-					url : '/api/sources/' + val.id + '/',
-					data : {
-						description : params.value,
-						map : val.map,
-						id : val.id
+			url : function(params){
+					updateModalContent(params, val, "description", '#source-description')
 					},
-					success : function(data, status) {
-						if (status === 'success') {
-							$('#source-description').text(params.value);
-							val.description = params.value;
-							console.log("edited the source");
-						}
-					},
-					dataType : "json"
-				});
-			},
 			title : 'Food Source Description',
 		});
+		
 		$('#delete-source-btn').click(function(){
 			$.ajax({
 				type : "DELETE",
@@ -208,6 +173,11 @@ function setupViewModal(val) {
 				dataType : "json"
 			});
 		});
+		
+	}
+	else{
+		$('#source-name').text(val.name)
+		$('#source-description').text(val.description);
 	}
 	
 	$('#view-source-modal').modal('show');
@@ -231,6 +201,23 @@ function setupViewModal(val) {
 	getComments(val);
 		// extract this into a function
 	
+}
+
+function updateModalContent(params, source, fieldToUpdate, divToUpdate) {
+	var data = {};
+	data[fieldToUpdate] = params.value;
+	
+	$.ajax({
+		type : "PATCH",
+		url : '/api/sources/' + source.id + '/',
+		data : data,
+		success : function() {
+				allMarkers.clearLayers();
+				getSources();
+				$(divToUpdate).text(params.value);
+		},
+		dataType : "json"
+	});
 }
 
 // Layer group to hold all markers shown on map
