@@ -4,6 +4,9 @@ from api.models import Map, Source
 from django.core import serializers
 from django.http import HttpResponse, Http404, HttpResponseNotFound, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, user_passes_test
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 def index(request):
 	return render(request, 'root.html')
@@ -64,3 +67,42 @@ def getBbox(sources):
 		if source.longitude < bbox[1][1]:
 			bbox[1][1] = float(source.longitude)
 	return bbox
+
+@api_view(['GET','POST'])
+def editsourcename(request, pk):
+	if request.method == 'POST':
+		Source.objects.filter(id=pk).update(name=request.POST.get('name'))
+    
+	current_map=Map.objects.filter(id = Source.objects.filter(id=pk)[0].map_id)[0]
+	sources=Source.objects.filter(map=current_map.id, status=True)
+	bbox = getBbox(sources);
+	if current_map:
+		return HttpResponseRedirect('/map/' + current_map.namespace)
+	else:
+		raise Http404
+	
+@api_view(['GET','POST'])
+def editsourcedesc(request, pk):
+	if request.method == 'POST':
+		Source.objects.filter(id=pk).update(description=request.POST.get('description'))
+    
+	current_map=Map.objects.filter(id = Source.objects.filter(id=pk)[0].map_id)[0]
+	sources=Source.objects.filter(map=current_map.id, status=True)
+	bbox = getBbox(sources);
+	if current_map:
+		return HttpResponseRedirect('/map/' + current_map.namespace)
+	else:
+		raise Http404
+
+@api_view(['GET','POST'])
+def deletesource(request, pk):
+	current_map=Map.objects.filter(id = ((Source.objects.filter(id=pk))[0]).map_id)[0]
+	if request.method == 'POST':
+		Source.objects.filter(id=pk).delete();
+	
+	sources=Source.objects.filter(map=current_map.id, status=True)
+	bbox = getBbox(sources);
+	if current_map:
+		return HttpResponseRedirect('/map/' + current_map.namespace)
+	else:
+		raise Http404		

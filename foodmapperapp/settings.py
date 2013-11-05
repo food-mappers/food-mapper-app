@@ -193,7 +193,7 @@ LOGIN_URL = '/login'
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] =  dj_database_url.config(default='postgres://foodmapper:foodmapper@localhost/food_map_test')
+DATABASES['default'] =  dj_database_url.config(default='postgres://ranjan:ranjan@localhost/food_map_test')
 DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
