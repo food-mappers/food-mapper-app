@@ -1,14 +1,14 @@
 {% extends "base.html" %}
 
 {% block title %}
-<title> Food Mapper | Maps </title>
+<title> FoodMapper | Maps </title>
 {% endblock %}
 
 {% block content %}
 <div class="container">
 	<div class="row">
 		<div class="col-sm-8">
-		<h1>Food Mapper Maps</h1>
+		<h1>FoodMapper Maps</h1>
 			<p>To use FoodMapper, you create <em>maps</em> then place points on them to describe and geographically chart the <em>food resources</em> in your community. Maps can be as small or as large as you want. They should have good <em>names</em> and <em>descriptions</em> so that other users can find them and contribute to them.</p>
 		</div>
 		<div class="col-sm-4">
@@ -38,8 +38,8 @@
 	{% endfor %}
 	</div>
 </div>
-{% include "addMap.html" %}
 
+{% include "addMap.html" %}
 {% endblock %}
 
 {% block scripts %}
@@ -77,9 +77,12 @@ function addMap(){
 
 function makeMapTile(data) {
 	var html = '';
-	html += '<div class="col-sm-4"><div class="panel panel-warning">'
-	html += '<div class="panel-heading"><a href="/map/' + data.namespace + '"><h3>'+ data.name + '</h3></a></div>'
-	html +=  '<div class="panel-body">' + data.description + '</div></div>';
+	html += '<div class="col-lg-4">'
+	html +=	'<div class="panel panel-warning">'
+	html +=	'<div class="panel-heading">'
+	html += 	'<a href="/map/' + data.namespace + '"><h3>'+ data.name + '</h3></a></div>'
+	html += '<div class="panel-body">' + data.description + '</div></div>';
+	console.log(html);
 	return html;
 }
 

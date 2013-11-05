@@ -4,31 +4,34 @@
       <div class="modal-header">
         <!-- close modal button in top right corner -->
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h6>Foodmap Resource Name</h6>
         <div id="view-source-header">
+          <h4 id="source-name">sourcename</h4>
+          <span id="source-creation-time"class='small text-muted pull-right'>a long time ago</span>
+          <span id="source-description" class="">description</span>
+          <div id="tags-block">tags</div>
         </div>
       </div>
       <div id="view-source-body" class="modal-body">
-        <h6>Description</h6>
-        <div id="description-block"></div>
-        <hr>
-        <h6>Tags</h6>
-        <div id="tags-block"></div>
-        <hr>
         <h6>Comments</h6>
-        <div id="comment-block" class="small">
+        <div id="comment-block" class="small"></div>
+        <div class="row">
+          <!-- http://getbootstrap.com/javascript/#collapse -->
+          <!-- This should enable comment form show/hide block -->
+          <button id='show-add-comment-block' class='btn btn-default pull-right'>Add a comment</button>
         </div>
         <div id="add-comment-block" class="small" style="display: none">
           <form role="form">
-          <div class="form-group">
-            <label for="commentText"></label>
-            <input type="textfield" class="form-control" id="commentText" placeholder="Enter a comment">
-          </div>
+            <div class="form-group">
+              <label for="commentText"></label>
+              <input type="textfield" class="form-control" id="commentText" placeholder="Enter a comment">
+            </div>
           </form>
           <button type="button" class="btn btn-primary" onClick="addComment()">Submit</button>
         </div>
-      
       </div>
-    </div>
-  </div>
-</div>
+      <div class="modal-footer">
+        <div id="delete-button">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

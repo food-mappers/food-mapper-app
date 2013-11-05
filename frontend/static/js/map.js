@@ -53,11 +53,54 @@ L.control.locate({
 	stopFollowingOnDrag: true
 }).addTo(map_detail);
 
+// ITF: the selection and completion of the point modal from callbacks to API
+// within this function, setup the interactions (add comment, etc, appropriate to 
+// this modal construction and desctruction)
+
+function setupViewModal(val) {
+	activeSource = val;
+	$('#add-comment-block').hide();
+	$('#show-add-comment-block').show();
+
+	// populate the fields in the viewPoint.html modal using jQuery selectors
+	$('#source-name').text(val.name);
+	$('#source-description').text(val.description);
+	$('#source-creation-time').text(moment(val.created).fromNow());
+	$('#view-source-modal').modal('show');
+	$('#tags-block').html(function() {
+		var tags = val.tags;
+		var text = '';
+		if (val.tags.length == 0) { // no tags yet
+			return '';
+		}
+		text += '<hr>';
+		for (i in tags) { // wrap each tag in a style badge divided by a space
+			text += "<span class='badge badge-default'>" + tags[i] + "</span>"
+			if (i != tags.length) {
+				text += ' ';
+			}
+		}
+		return text;
+	});
+	// populate the comments block...
+	getComments(val);
+
+	// hook up the click interactions for the addComments functionality
+	$('#show-add-comment-block').on('click', function() {
+		$('#add-comment-block').show();
+		$('#show-add-comment-block').hide();
+	})
+}
+
+// This function should strictly make a json call, receive the comment set from the API, then:
+// if no comments returned, write 'be the first to comment on...'
+// if 1 or more comments exist, for each, write a .comment-item div in the modal viewPoint.html
+//
+// >>> DO NOT write or overwrite click interactions in this function. <<<
+//
 
 function getComments(val) {
-	console.log(val)
 	$.getJSON('/api/comments/?source=' + val.id, function(data) {
-		console.log(data)
 		var html = "";
 		if (data.length == 0) {
 			html += "<span style='color: light-gray;'>Be the first to comment on " + val.name + "</span>"
@@ -65,15 +108,16 @@ function getComments(val) {
 		$.each(data, function(i, comment) {
 			var user = ''
 			if (comment.user == null) {
-				user = 'Anonymous'
+				user = 'Anonymous';
 			} else {
-				user = comment.user
+				user = comment.user;
 			}
-			html += "Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span><br><small>" + comment.content + "</small><hr>"
-		})
-		html += "<button id='show-add-comment-block' class='btn btn-info btn-xs pull-right'>add a comment</button><br>";
-		$('#comment-block').html(html);
+			html += "<div class='comment-element'>";
+			html += comment.content + "<br><small>Posted by: " + user + " <span class='pull-right'>" + moment(comment.created).fromNow() + "</span></small><hr>";
+			html += "</div>";
 
+		})
+		$('#comment-block').html(html);
 		$('#add-comment-block').hide();
 		$('#show-add-comment-block').click(function() {
 			$('#add-comment-block').toggle();
@@ -89,76 +133,83 @@ function updateSource(val) {
 function setupViewModal(val) {
 	// console.log(val)
 	activeSource = val;
-	//	console.log(activeSource.user);
+//	console.log(activeSource.user);
 	if (username != val.user) {
-		$('#view-source-header').html("<h4 class=''>" + val.name + "</h4>")
-		$('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + val.description);
-	} else {
-		$('#view-source-header').html("<a href='#' id='source-name'>" + val.name + "</a><button id='delete-source-btn' class='btn btn-info btn-xs pull-right'>Delete</button><br>");
+		$('#source-name').text(val.name)
+		$('#source-description').text(val.description);
+		$('#source-creation-time').text(moment(val.created).fromNow())
+	}
+	else{
+		$('#source-name').text(val.name)
+		$('#source-description').text(val.description);
+		$('#source-creation-time').text(moment(val.created).fromNow());
+		$('#delete-button').html("<button id='delete-source-btn' class='btn btn-danger pull-right'>Delete this food source</button><br>")
+		// $('#view-source-header').html("<a href='#' id='source-name'>" + val.name + "</a><button id='delete-source-btn' class='btn btn-info btn-xs pull-right'>Delete</button><br>");
 		$('#source-name').editable({
-			type: 'text',
-			url: function(params) {
+			type : 'text',
+			url : function(params) {
 				$.ajax({
-					type: "PATCH",
-					url: '/api/sources/' + val.id + '/',
-					data: {
-						name: params.value,
-						map: val.map,
-						id: val.id
+					type : "PATCH",
+					url : '/api/sources/' + val.id + '/',
+					data : {
+						name : params.value,
+						map : val.map,
+						id : val.id
 					},
-					success: function(data, status) {
+					success : function(data, status) {
 						if (status === 'success') {
 							$('#source-name').text(params.value);
 							val.name = params.value;
 							console.log("edited the source name");
 						}
 					},
-					dataType: "json"
+					dataType : "json"
 				});
 			},
-			title: 'Food Source Name',
+			title : 'Food Source Name',
 		});
-
-		$('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + "<a href='#' id=source-description >" + val.description + "</a>");
+		
+		// $('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + "<a href='#' id=source-description >"+val.description +"</a>");
 		$('#source-description').editable({
-			type: 'text',
-			url: function(params) {
+			type : 'text',
+			url : function(params) {
 				$.ajax({
-					type: "PATCH",
-					url: '/api/sources/' + val.id + '/',
-					data: {
-						description: params.value,
-						map: val.map,
-						id: val.id
+					type : "PATCH",
+					url : '/api/sources/' + val.id + '/',
+					data : {
+						description : params.value,
+						map : val.map,
+						id : val.id
 					},
-					success: function(data, status) {
+					success : function(data, status) {
 						if (status === 'success') {
 							$('#source-description').text(params.value);
 							val.description = params.value;
 							console.log("edited the source");
 						}
 					},
-					dataType: "json"
+					dataType : "json"
 				});
 			},
-			title: 'Food Source Description',
+			title : 'Food Source Description',
 		});
-		$('#delete-source-btn').click(function() {
+		$('#delete-source-btn').click(function(){
 			$.ajax({
-				type: "DELETE",
-				url: '/api/sources/' + val.id + '/',
-				data: {},
-				success: function() {
+				type : "DELETE",
+				url : '/api/sources/' + val.id + '/',
+				data : {
+				},
+				success : function() {
 					allMarkers.clearLayers();
 					getSources();
 					console.log("deleted the source");
 					$('#view-source-modal').modal('hide');
 				},
-				dataType: "json"
+				dataType : "json"
 			});
 		});
 	}
-
+	
 	$('#view-source-modal').modal('show');
 	$('#tags-block').html(function() {
 		// console.log(val);
@@ -178,8 +229,8 @@ function setupViewModal(val) {
 		return text;
 	});
 	getComments(val);
-	// extract this into a function
-
+		// extract this into a function
+	
 }
 
 // Layer group to hold all markers shown on map
@@ -191,10 +242,10 @@ function getSources() {
 	$.getJSON('/api/sources/?map=' + map.pk, function(data) {
 		$.each(data, function(i, val) {
 			allMarkers.addLayer(L.marker([val.latitude, val.longitude]).on('click', function(e) {
-				setupViewModal(val)
+				setupViewModal(val);
 			}))
 		})
-		allMarkers.addTo(map_detail)
+		allMarkers.addTo(map_detail);
 	})
 }
 
@@ -220,6 +271,7 @@ function addSource() {
 		tags: tags,
 		map: map.pk
 	}, function(data, status) {
+		refreshScroll();
 		if (status === 'success') {
 			allMarkers.clearLayers();
 			getSources();
@@ -234,10 +286,13 @@ function addComment(e) {
 		source: activeSource.id,
 		content: comment,
 	}, function(data, status) {
+		refreshScroll();
 		if (status === 'success') {
-			getComments(activeSource)
-			// console.log('ok');
+			getComments(activeSource);
 		}
 	})
+}
 
+function refreshScroll() {
+	$(window).scrollTop(0)
 }
