@@ -1,4 +1,4 @@
-An application for crowdsourcing food sources in food sheds.
+FoodMapper is an application for crowdsourcing food sources in food sheds.
 
 For now we are using the [Fork & Pull Model of development](https://help.github.com/articles/using-pull-requests)
 
