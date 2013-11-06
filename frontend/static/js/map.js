@@ -159,21 +159,25 @@ function setupViewModal(val) {
 		});
 		
 		$('#delete-source-btn').click(function(){
-			$.ajax({
-				type : "DELETE",
-				url : '/api/sources/' + val.id + '/',
-				data : {
-				},
-				success : function() {
-					allMarkers.clearLayers();
-					getSources();
-					console.log("deleted the source");
-					$('#view-source-modal').modal('hide');
-				},
-				dataType : "json"
-			});
-		});
-		
+			bootbox.confirm("Are you sure you want to delete this food source?", function(result) {
+				  if(result == true){
+						$.ajax({
+						type : "DELETE",
+						url : '/api/sources/' + val.id + '/',
+						data : {
+						},
+						success : function() {
+							allMarkers.clearLayers();
+							getSources();
+							console.log("deleted the source");
+							$('#view-source-modal').modal('hide');
+						},
+						dataType : "json"
+					});
+				  }
+				}); 
+			}
+			);
 	}
 	else{
 		$('#source-name').text(val.name)
