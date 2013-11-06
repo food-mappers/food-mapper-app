@@ -13,6 +13,26 @@ input[type="radio"], input[type="checkbox"] {
   clear: both;
   display: block;
   margin:0;
+  width:100%;
+  position:relative
+}
+
+.img-responsive-customize{
+display: block;
+height: 431px;
+max-width: 100%;
+}
+#highblocktxt{
+  position:absolute; 
+  left:20%; 
+  top:5%; 
+  text-align: center;
+}
+.highblocktxt h1{
+  font-size: 58px;
+}
+.highblocktxt p{
+  font-size: 19px;
 }
 #hr1{
   margin-top: 80px;
