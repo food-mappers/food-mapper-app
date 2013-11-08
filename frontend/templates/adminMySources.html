@@ -1,0 +1,16 @@
+{% extends "user.html" %}
+
+
+{% block admincontent %}
+<div class="container">
+	<div class="col-lg-4">
+		<h3>{{ sources|length }} total sources</h3>
+	</div>
+	{% for source in sources %}
+		<div class="col-lg-4">
+			<a href="/map/{{source.map.namespace}}"><h3>{{source.name}}</h3></a>
+			<p>{{source.description}}</p>
+		</div>
+	{% endfor %}
+</div>
+{% endblock %}
