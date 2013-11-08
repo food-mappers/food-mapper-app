@@ -43,6 +43,7 @@
 {% endblock %}
 
 {% block scripts %}
+<script type="text/javascript" src="{{STATIC_URL}}bower_components/parsleyjs/dist/parsley-standalone.min.js"></script>
 <script>
 
 // Sets up AJAX requests to use CSRF Token
@@ -55,24 +56,26 @@ $(function() {
 });
 
 function addMap(){
-	$('#add-map-modal').modal('hide')
-	var map_name = $('#mapName').val();
-	var map_description = $('#mapDescription').val();
-	$('#mapName').val('');
-	$('#mapDescription').val('');
-	$.post('/api/maps/',{
-		name: map_name,
-		description: map_description,
-	}, function(data, success) { 
-			if ( success === "success") {
-				// console.log("done: " + success); 
-				// console.log(data);
-				$('#map-tiles').prepend( makeMapTile(data) );
-			}
-			else {
-				console.log("failed: "+data);
-			}
-	});
+	if ($('#addMap-form').parsley('validate')) {
+		$('#add-map-modal').modal('hide')
+		var map_name = $('#mapName').val();
+		var map_description = $('#mapDescription').val();
+		$('#mapName').val('');
+		$('#mapDescription').val('');
+		$.post('/api/maps/',{
+			name: map_name,
+			description: map_description,
+		}, function(data, success) { 
+				if ( success === "success") {
+					// console.log("done: " + success); 
+					// console.log(data);
+					$('#map-tiles').prepend( makeMapTile(data) );
+				}
+				else {
+					console.log("failed: "+data);
+				}
+		});
+	}
 }
 
 function makeMapTile(data) {

@@ -130,60 +130,59 @@ function updateSource(val) {
 }
 // ITF: the selection and completion of the point modal from callbacks to API
 $.fn.editable.defaults.mode = 'inline';
+
 function setupViewModal(val) {
+	$( '#addPoint-form' ).parsley();
 	// console.log(val)
 	activeSource = val;
-//	console.log(activeSource.user);
+	//	console.log(activeSource.user);
 	$('#source-creation-time').text(moment(val.created).fromNow())
 	if (username == val.user || username == map.user) {
-		
+
 		$('#source-name').text(val.name)
 		$('#source-description').text(val.description);
 		$('#delete-button').html("<button id='delete-source-btn' class='btn btn-danger pull-right'>Delete this food source</button><br>")
 		// $('#view-source-header').html("<a href='#' id='source-name'>" + val.name + "</a><button id='delete-source-btn' class='btn btn-info btn-xs pull-right'>Delete</button><br>");
 		$('#source-name').editable({
-			type : 'text',
-			url : function(params){
+			type: 'text',
+			url: function(params) {
 				updateModalContent(params, val, "name", '#source-name')
-				},
-			title : 'Food Source Name',
+			},
+			title: 'Food Source Name',
 		});
-		
+
 		// $('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + "<a href='#' id=source-description >"+val.description +"</a>");
 		$('#source-description').editable({
-			type : 'text',
-			url : function(params){
-					updateModalContent(params, val, "description", '#source-description')
-					},
-			title : 'Food Source Description',
+			type: 'text',
+			url: function(params) {
+				updateModalContent(params, val, "description", '#source-description')
+			},
+			title: 'Food Source Description',
 		});
-		
-		$('#delete-source-btn').click(function(){
+
+		$('#delete-source-btn').click(function() {
 			bootbox.confirm("Are you sure you want to delete this food source?", function(result) {
-				  if(result == true){
-						$.ajax({
-						type : "DELETE",
-						url : '/api/sources/' + val.id + '/',
-						data : {
-						},
-						success : function() {
+				if (result == true) {
+					$.ajax({
+						type: "DELETE",
+						url: '/api/sources/' + val.id + '/',
+						data: {},
+						success: function() {
 							allMarkers.clearLayers();
 							getSources();
 							console.log("deleted the source");
 							$('#view-source-modal').modal('hide');
 						},
-						dataType : "json"
+						dataType: "json"
 					});
-				  }
-				}); 
-			}
-			);
-	}
-	else{
+				}
+			});
+		});
+	} else {
 		$('#source-name').text(val.name)
 		$('#source-description').text(val.description);
 	}
-	
+
 	$('#view-source-modal').modal('show');
 	$('#tags-block').html(function() {
 		// console.log(val);
@@ -203,24 +202,24 @@ function setupViewModal(val) {
 		return text;
 	});
 	getComments(val);
-		// extract this into a function
-	
+	// extract this into a function
+
 }
 
 function updateModalContent(params, source, fieldToUpdate, divToUpdate) {
 	var data = {};
 	data[fieldToUpdate] = params.value;
-	
+
 	$.ajax({
-		type : "PATCH",
-		url : '/api/sources/' + source.id + '/',
-		data : data,
-		success : function() {
-				allMarkers.clearLayers();
-				getSources();
-				$(divToUpdate).text(params.value);
+		type: "PATCH",
+		url: '/api/sources/' + source.id + '/',
+		data: data,
+		success: function() {
+			allMarkers.clearLayers();
+			getSources();
+			$(divToUpdate).text(params.value);
 		},
-		dataType : "json"
+		dataType: "json"
 	});
 }
 
@@ -245,29 +244,33 @@ getSources();
 //post new food source on success clear markers and get all markers... need to modify to get ?Created > initial pageload date/time
 
 function addSource() {
-	$('#add-source-modal').modal('hide')
-	var latlng = map_detail.getCenter()
-	var name = $('#sourceName').val()
-	var desc = $('#sourceDesc').val()
-	var tags = $('#sourceTags').val();
-	// console.log(tags);
-	$('#sourceName').val('');
-	$('#sourceDesc').val('');
-	$('#sourceTags').val('');
-	$.post('/api/sources/', {
-		latitude: latlng.lat,
-		longitude: latlng.lng,
-		name: name,
-		description: desc,
-		tags: tags,
-		map: map.pk
-	}, function(data, status) {
-		refreshScroll();
-		if (status === 'success') {
-			allMarkers.clearLayers();
-			getSources();
-		}
-	})
+	console.log($('#addPoint-form').parsley('isValid'))
+	if ($('#addPoint-form').parsley('validate')) {
+		$('#add-source-modal').modal('hide')
+		var latlng = map_detail.getCenter()
+		var name = $('#sourceName').val()
+		var desc = $('#sourceDesc').val()
+		var tags = $('#sourceTags').val();
+		// console.log(tags);
+		$('#sourceName').val('');
+		$('#sourceDesc').val('');
+		$('#sourceTags').val('');
+		$.post('/api/sources/', {
+			latitude: latlng.lat,
+			longitude: latlng.lng,
+			name: name,
+			description: desc,
+			tags: tags,
+			map: map.pk
+		}, function(data, status) {
+			refreshScroll();
+			if (status === 'success') {
+				allMarkers.clearLayers();
+				getSources();
+			}
+		})
+	}
+
 }
 
 function addComment(e) {
