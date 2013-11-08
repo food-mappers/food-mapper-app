@@ -6,15 +6,15 @@
         <h4 class="modal-title">Add a map</h4>
       </div>
       <div class="modal-body">
-        <form role="form">
+        <form id="addMap-form" role="form">
           {% csrf_token %}
           <div class="form-group">
             <label for="sourceName">Name</label>
-            <input type="text" class="form-control" id="mapName" placeholder="Name this map">
+            <input type="text" class="form-control" id="mapName" placeholder="Name this map" data-required="true">
           </div>
           <div class="form-group">
             <label for="sourceDesc">Description</label>
-            <textarea class="form-control" rows="3" id="mapDescription" placeholder="Enter a description for this map"></textarea>
+            <textarea class="form-control" rows="3" id="mapDescription" placeholder="Enter a description for this map" data-required="true"></textarea>
           </div>
         </form>
       </div>
