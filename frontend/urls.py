@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     url(r'^maps', 'frontend.views.maps'),
     url(r'^map/(?P<slug>[-\w]+)','frontend.views.map'),
     url(r'^user/(?P<username>[-\w]+)/maps','frontend.views.usermaps'),
+    url(r'^user/(?P<username>[-\w]+)/sources','frontend.views.usersources'),
     url(r'^user/(?P<username>[-\w]+)','frontend.views.user'),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 )

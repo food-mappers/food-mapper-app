@@ -53,6 +53,13 @@ def usermaps(request, username):
 	else:
 		raise Http404
 
+@login_required
+def usersources(request, username):
+	if (request.user.username == username):
+		return render(request, 'adminMySources.html', {'sources': Source.objects.filter(owner=request.user.pk)})
+	else:
+		raise Http404
+
 def getBbox(sources):
 	bbox = [[-180,-180],[180,180]]
 	if len(sources) == 0:
