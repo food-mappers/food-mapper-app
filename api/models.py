@@ -50,3 +50,16 @@ class Comment(models.Model):
         super(Comment, self).save(*args, **kwargs)
     class Meta:
         db_table = "comment"      
+
+class UserProfile(models.Model):
+    user = models.ForeignKey('auth.User', related_name='profile', unique=True)
+    orgname = models.CharField(max_length=150)
+
+    def __unicode__(self):
+        return "user profile for " + self.user.name
+
+    def save(self, *args, **kwargs):
+        super(UserProfile, self).save(*args, **kwargs)
+
+    class Meta:
+        db_table = 'userprofile'

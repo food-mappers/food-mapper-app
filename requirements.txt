@@ -4,6 +4,7 @@ dj-static
 django-filter
 django-taggit
 django-registration
+django-registration-defaults
 django-profiles
 
 # The server
