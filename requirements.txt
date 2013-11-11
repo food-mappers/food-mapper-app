@@ -3,6 +3,8 @@ django-autoslug
 dj-static
 django-filter
 django-taggit
+django-registration
+django-profiles
 
 # The server
 django
