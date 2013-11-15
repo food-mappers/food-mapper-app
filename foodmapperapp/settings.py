@@ -1,6 +1,7 @@
 # Django settings for src project.
 import os
 import dj_database_url
+from registration_defaults.settings import *
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -135,7 +136,9 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.core.mail',
     'rest_framework',
+    'registration_defaults',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     'django_filters',
@@ -144,9 +147,24 @@ INSTALLED_APPS = (
     'api',
     'taggit',
     'debug_toolbar',
+    'registration',
+    'profiles',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
+
+# required by registration app
+ACCOUNT_ACTIVATION_DAYS = 30 # one-month activation window
+
+# required by mail module
+# EMAIL_HOST = 'ccmail.cc.gatech.edu'
+# EMAIL_PORT = ''
+# EMAIL_HOST_USER = 'apruett3@gatech.edu'
+# EMAIL_HOST_PASSWORD = 'LooseYak3Stack'
+# EMAIL_USE_TLS = ''
+
+# required by profile app
+AUTH_PROFILE_MODULE = 'api.UserProfile'
 
 INTERNAL_IPS = ('127.0.0.1',)
 
