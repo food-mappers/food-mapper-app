@@ -17,6 +17,12 @@ def page_not_found(request):
 def login(request):
 	return TemplateResponse(request, 'login.html', {'request': request})
 
+def about(request):
+	return render(request, 'about.html')
+
+def contact(request):
+	return render(request, 'contact.html')
+
 def maps(request):
 	return render(request, 'maps.html', {'maps' : Map.objects.all()})
 

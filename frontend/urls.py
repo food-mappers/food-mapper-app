@@ -8,6 +8,8 @@ print views
 urlpatterns = patterns('',
     url(r'^$', 'frontend.views.index'),
     url(r'^login', 'frontend.views.login'),
+    url(r'^about', 'frontend.views.about'),
+    url(r'^contact', 'frontend.views.contact'),
     url(r'^maps/add', 'frontend.views.addmap'),
 #     url(r'^sources/editname/(?P<pk>[0-9]+)$', 'frontend.views.editsourcename'),
 #     url(r'^sources/editdesc/(?P<pk>[0-9]+)$', 'frontend.views.editsourcedesc'),
