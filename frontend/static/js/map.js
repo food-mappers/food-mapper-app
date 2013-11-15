@@ -103,7 +103,7 @@ function setupViewModal(val) {
 	$('#source-description').text(val.description);
 	$('#source-creation-time').text(moment(val.created).fromNow())
 
-	if (username == val.user  ) {
+	if (username == val.user || user_id == map.fields.owner ) {
 		console.log(val.user);
 		$('#delete-button').html("<button id='delete-source-btn' class='btn btn-danger pull-right'>Delete this food source</button><br>")
 		// $('#view-source-header').html("<a href='#' id='source-name'>" + val.name + "</a><button id='delete-source-btn' class='btn btn-info btn-xs pull-right'>Delete</button><br>");
