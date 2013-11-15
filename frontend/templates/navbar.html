@@ -12,8 +12,19 @@
 			<li> 
 				<a href="/maps">View Maps</a>
 			</li>
+			{% if user.is_authenticated %}
 			<li> 
-				<a id='feedback-link' href='' target="_blank">Submit Feedback</a>
+				<a href="/user/{{user.username}}">My Contributions</a>
+			</li>
+			{% endif %}
+			<li> 
+				<a href="/about">About</a>
+			</li>
+			<li> 
+				<a href="/contact">Contact</a>
+			</li>
+			<li> 
+				<a class='feedback-link' href='' target="_blank">Submit Feedback</a>
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">

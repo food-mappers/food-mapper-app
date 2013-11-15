@@ -8,6 +8,8 @@ print views
 urlpatterns = patterns('',
     url(r'^$', 'frontend.views.index'),
     url(r'^login', 'frontend.views.login'),
+    url(r'^about', 'frontend.views.about'),
+    url(r'^contact', 'frontend.views.contact'),
     url(r'^maps/add', 'frontend.views.addmap'),
 #     url(r'^sources/editname/(?P<pk>[0-9]+)$', 'frontend.views.editsourcename'),
 #     url(r'^sources/editdesc/(?P<pk>[0-9]+)$', 'frontend.views.editsourcedesc'),
@@ -15,6 +17,7 @@ urlpatterns = patterns('',
     url(r'^maps', 'frontend.views.maps'),
     url(r'^map/(?P<slug>[-\w]+)','frontend.views.map'),
     url(r'^user/(?P<username>[-\w]+)/maps','frontend.views.usermaps'),
+    url(r'^user/(?P<username>[-\w]+)/sources','frontend.views.usersources'),
     url(r'^user/(?P<username>[-\w]+)','frontend.views.user'),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 )
