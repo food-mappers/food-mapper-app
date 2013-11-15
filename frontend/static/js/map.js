@@ -53,44 +53,6 @@ L.control.locate({
 	stopFollowingOnDrag: true
 }).addTo(map_detail);
 
-// ITF: the selection and completion of the point modal from callbacks to API
-// within this function, setup the interactions (add comment, etc, appropriate to 
-// this modal construction and desctruction)
-
-function setupViewModal(val) {
-	activeSource = val;
-	$('#add-comment-block').hide();
-	$('#show-add-comment-block').show();
-
-	// populate the fields in the viewPoint.html modal using jQuery selectors
-	$('#source-name').text(val.name);
-	$('#source-description').text(val.description);
-	$('#source-creation-time').text(moment(val.created).fromNow());
-	$('#view-source-modal').modal('show');
-	$('#tags-block').html(function() {
-		var tags = val.tags;
-		var text = '';
-		if (val.tags.length == 0) { // no tags yet
-			return '';
-		}
-		text += '<hr>';
-		for (i in tags) { // wrap each tag in a style badge divided by a space
-			text += "<span class='badge badge-default'>" + tags[i] + "</span>"
-			if (i != tags.length) {
-				text += ' ';
-			}
-		}
-		return text;
-	});
-	// populate the comments block...
-	getComments(val);
-
-	// hook up the click interactions for the addComments functionality
-	$('#show-add-comment-block').on('click', function() {
-		$('#add-comment-block').show();
-		$('#show-add-comment-block').hide();
-	})
-}
 
 // This function should strictly make a json call, receive the comment set from the API, then:
 // if no comments returned, write 'be the first to comment on...'
@@ -125,9 +87,10 @@ function getComments(val) {
 	});
 }
 
-function updateSource(val) {
+// ITF: the selection and completion of the point modal from callbacks to API
+// within this function, setup the interactions (add comment, etc, appropriate to 
+// this modal construction and desctruction)
 
-}
 // ITF: the selection and completion of the point modal from callbacks to API
 $.fn.editable.defaults.mode = 'inline';
 
@@ -136,19 +99,22 @@ function setupViewModal(val) {
 	// console.log(val)
 	activeSource = val;
 	//	console.log(activeSource.user);
+	$('#source-name').text(val.name)
+	$('#source-description').text(val.description);
 	$('#source-creation-time').text(moment(val.created).fromNow())
-	if (username == val.user || username == map.user) {
 
-		$('#source-name').text(val.name)
-		$('#source-description').text(val.description);
+	if (username == val.user  ) {
+		console.log(val.user);
 		$('#delete-button').html("<button id='delete-source-btn' class='btn btn-danger pull-right'>Delete this food source</button><br>")
 		// $('#view-source-header').html("<a href='#' id='source-name'>" + val.name + "</a><button id='delete-source-btn' class='btn btn-info btn-xs pull-right'>Delete</button><br>");
+
 		$('#source-name').editable({
 			type: 'text',
 			url: function(params) {
 				updateModalContent(params, val, "name", '#source-name')
 			},
-			title: 'Food Source Name',
+			title: 'Food Source Name'
+			
 		});
 
 		// $('#description-block').html("<span class='small text-muted pull-right'>" + moment(val.created).fromNow() + "</span>" + "<a href='#' id=source-description >"+val.description +"</a>");
@@ -157,8 +123,12 @@ function setupViewModal(val) {
 			url: function(params) {
 				updateModalContent(params, val, "description", '#source-description')
 			},
-			title: 'Food Source Description',
+			title: 'Food Source Description'
+			
 		});
+
+		$('#source-description').editable('option', 'disabled', false);
+		$('#source-name').editable('option', 'disabled', false);
 
 		$('#delete-source-btn').click(function() {
 			bootbox.confirm("Are you sure you want to delete this food source?", function(result) {
@@ -178,9 +148,11 @@ function setupViewModal(val) {
 				}
 			});
 		});
-	} else {
-		$('#source-name').text(val.name)
-		$('#source-description').text(val.description);
+	} else {		
+		
+		$('#source-description').editable('option', 'disabled', true);
+		$('#source-name').editable('option', 'disabled', true);
+		$('#delete-button').html("");
 	}
 
 	$('#view-source-modal').modal('show');
@@ -209,7 +181,7 @@ function setupViewModal(val) {
 function updateModalContent(params, source, fieldToUpdate, divToUpdate) {
 	var data = {};
 	data[fieldToUpdate] = params.value;
-
+	console.log("inside patch call");
 	$.ajax({
 		type: "PATCH",
 		url: '/api/sources/' + source.id + '/',
