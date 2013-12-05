@@ -14,14 +14,24 @@ Functionalities:
 
 3) Create a new map
 
+Create a crowdsourced map of my community's food resources
+
+
 ![Create a map](https://raw.github.com/food-mappers/food-mapper-app/master/docs/images/createmap.jpg)
 
-4) Ping where food is located
+4) Add a food source to the map
+
+![Add a food source](https://raw.github.com/food-mappers/food-mapper-app/master/docs/images/addsource.jpg)
 
 5) Add food detailed information
 
-6) Edit food detailed information
+![Add details about a source](https://raw.github.com/food-mappers/food-mapper-app/master/docs/images/adddetails.jpg)
 
-7) View contribution
+6) Comments can be added and food sources can be edited
 
-You see, that was formatted as code because it's been indented by four spaces.
+![Comment on and edit sources](https://raw.github.com/food-mappers/food-mapper-app/master/docs/images/addcomment.jpg)
+
+
+7) View the maps and sources you have created
+
+![View your contributions](https://raw.github.com/food-mappers/food-mapper-app/master/docs/images/viewsources.jpg)

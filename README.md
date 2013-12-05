@@ -1,5 +1,4 @@
-Foodmapper
-================================
+#FoodMapper
 
 <pre>
   _____               _   __  __                             
@@ -17,8 +16,12 @@ Our system is a a crowdsource application designed for communities to catalog th
 
 FoodMapper was built during the Fall 2013 Computing for Good course at [Georgia Institute of Technology](http://www.cc.gatech.edu/).
 
+## FoodMapper Documentation
 * [Installation](/docs/INSTALLATION.md)
 * [System Architecture](/docs/ARCHITECTURE.md)
 * [Application Storyboard](/docs/STORYBOARD.md)
 * [Sustainability Plan](/docs/SUSTAINABILITYPLAN.md)
 
+### Other Deliverables
+* [FoodMapper Poster](/docs/FoodMapper_Poster_C4G2013.pdf)
+* [Participatory Data Gathering - A Workshop Outline for Using FoodMapper](/docs/FoodMapper_Workshop.pdf)
