@@ -1,62 +1,24 @@
-FoodMapper is an application for crowdsourcing food sources in food sheds.
+Foodmapper
+================================
 
-For now we are using the [Fork & Pull Model of development](https://help.github.com/articles/using-pull-requests)
-
-1.) Fork the [main repo](https://github.com/food-mappers/food-mapper-app)
-
-After the repo is forked and created at 'your-github-username/food-mapper-app', clone your repo
-
-	git clone https://github.com/your-github-username/food-mapper-app.git
-
-or
-
-	git clone git@github.com:your-github-username/food-mapper-app.git
-
-2.) Create new virtual environement
-
-	cd food-mapper-app
-	virtualenv env
-	source env/bin/activate
-	pip install -r requirements.txt
-
-3a.) Create the database and users
-
-	createdb food_map_test
-	psql -d food_map_test
-	CREATE USER foodmapper WITH PASSWORD 'foodmapper';
-	GRANT ALL PRIVILEGES ON food_map_test to foodmapper;
-	\q
-
-3a.1) You might have trouble with PostGRES when trying to run the app.
-
-	To complete the syncdb command, I needed to hack around adding links to the libraries needed by postgres.
-
-	First make a directory, then make some symlinks to missing libs.
+<pre>
+  _____               _   __  __                             
+ |  ___|__   ___   __| | |  \/  | __ _ _ __  _ __   ___ _ __ 
+ | |_ / _ \ / _ \ / _` | | |\/| |/ _` | '_ \| '_ \ / _ \ '__|
+ |  _| (_) | (_) | (_| | | |  | | (_| | |_) | |_) |  __/ |   
+ |_|  \___/ \___/ \__,_| |_|  |_|\__,_| .__/| .__/ \___|_|   
+                                      |_|   |_|             
+</pre>
 
 
-	> mkdir food-mapper-app/env/lib/python2.7/site-packages/lib
-	> ln -s /Applications/Postgres.app/Contents/MacOS/lib/libssl.1.0.0.dylib food-mapper-app/env/lib/python2.7/site-packages/lib/libssl.1.0.0.dylib
-	> ln -s /Applications/Postgres.app/Contents/MacOS/lib/libcrypto.1.0.0.dylib food-mapper-app/env/lib/python2.7/site-packages/lib/libcrypto.1.0.0.dylib 
+Food Mapper is An Open and Accessible Platform for Documenting the Issues and Opportunities of the Local Food System. It is an interactive map and database system that reflects the dynamics of community food systems while supporting interaction modes available to the community of stakeholders which it will support. It supports crowdsourcing to import information from and about the community, considering high and low levels of access to technology platforms such as publicly available computers, feature phones. It is also a generalizable solution built to be scalable and customizable for deployment in other communities. 
 
+Our system is a a crowdsource application designed for communities to catalog their food environment. They upload photos and descriptions to an interactive map that supports searching, browsing, and reporting the real world conditions. It is a responsive web application, runs the same on many platforms, and is backed by a RESTful API to a database.
 
-3b.) Run sync db
+FoodMapper was built during the Fall 2013 Computing for Good course at [Georgia Institute of Technology](http://www.cc.gatech.edu/).
 
-	python manage.py syncdb
-	#seed initial data
-	python manage.py loaddata fixtures/map_data
-	#load a map with a lot of points
-	python manage.py loaddata fixtures/lotsofdata
+* [Installation](/docs/INSTALLATION.md)
+* [System Architecture](/docs/ARCHITECTURE.md)
+* [Application Storyboard](/docs/STORYBOARD.md)
+* [Sustainability Plan](/docs/SUSTAINABILITYPLAN.md)
 
-During syncdb create superuser
-
-4.) Start server
-
-	python manage.py runserver
-
-5.) Navigate to root [http://127.0.0.1:8000](http://127.0.0.1:8000) - Should see map for now
-
-6.) Signin with user you created - now you can create a community
-
-7.) Navigate to root/communities, create a community
-
-8.) Navigate to root/sources, create a food source.
