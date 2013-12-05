@@ -1,5 +1,6 @@
-Architecture of techniques
-----------
+## Built on open source
+
+FoodMapper is built off of several existing open source projects listed below.  Each project has active development communities.
 
 * [Django](https://github.com/django/djangoproject)
 * [Twitter Bootstrap](https://github.com/twbs/bootstrap) 		
@@ -7,12 +8,7 @@ Architecture of techniques
 * [PostgreSQL](http://www.postgresql.org/)
 
 
-
-Our project include a service based application on different platform, including a Django web side location based application which backed back PostGRES database which is suitable for geo-data. 
-
-Architecture of source code
-----------
-
+## Architecture of source code
 
 **api** - A Django app that provides models, views, serializers, and urls for the API that is used in FoodMapper.  This code heavily utilizes the [Django REST Framework project](http://django-rest-framework.org/).  To begin working on this part of the application, please check out the Django REST Framework [tutorial](http://django-rest-framework.org/tutorial/quickstart) to understand how this works.
  
