@@ -1,4 +1,4 @@
-Use Cases
+Use Cases and User Manual
 ------------
 
 Interface for the Map:
