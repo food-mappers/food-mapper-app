@@ -19,7 +19,7 @@ FoodMapper was built during the Fall 2013 Computing for Good course at [Georgia 
 ## FoodMapper Documentation
 * [Installation](/docs/INSTALLATION.md)
 * [System Architecture](/docs/ARCHITECTURE.md)
-* [Application Storyboard](/docs/STORYBOARD.md)
+* [User Manual](/docs/STORYBOARD.md)
 * [Sustainability Plan](/docs/SUSTAINABILITYPLAN.md)
 
 ### Other Deliverables
