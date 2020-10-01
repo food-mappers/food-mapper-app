@@ -12,7 +12,7 @@
 
 Food Mapper is An Open and Accessible Platform for Documenting the Issues and Opportunities of the Local Food System. It is an interactive map and database system that reflects the dynamics of community food systems while supporting interaction modes available to the community of stakeholders which it will support. It supports crowdsourcing to import information from and about the community, considering high and low levels of access to technology platforms such as publicly available computers, feature phones. It is also a generalizable solution built to be scalable and customizable for deployment in other communities. 
 
-Our system is a a crowdsource application designed for communities to catalog their food environment. They upload photos and descriptions to an interactive map that supports searching, browsing, and reporting the real world conditions. It is a responsive web application, runs the same on many platforms, and is backed by a RESTful API to a database.
+Our system is a a crowdsource application designed for communities to catalog their food environment. They upload photos and descriptions to an interactive map that supports searching, browsing, and reporting the real world conditions. It is a responsive web application, runs the same on many platforms, it will help you to find testy and delicious food near by you and is backed by a RESTful API to a database.
 
 FoodMapper was built during the Fall 2013 Computing for Good course at [Georgia Institute of Technology](http://www.cc.gatech.edu/).
 
